@@ -1,0 +1,83 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-kich-ban-heading" data-cy="KichBanCreateUpdateHeading">Thêm mới</h2>
+      <header class="header-tsm">
+        <div>
+          <label class="form-label" for="field_maThietBi">
+            <p>Mã thiết bị</p>
+          </label>
+          <select class="form-control" id="field_maThietBi" data-cy="maThietBi" name="maThietBi" formControlName="maThietBi">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="maThietBiOption.id === editForm.get('thietBi')!.value?.id ?editForm.get('thietBi')!.value : maThietBiOption "
+              *ngFor="let maThietBiOption of thietBisSharedCollection; trackBy: trackThietBiById">
+              {{maThietBiOption.maThietBi}}</option>
+          </select>
+        </div>
+      
+        <div>
+          <label for="">
+            <p>Loại thiết bị</p>
+          </label>
+          <select class="form-control" id="field_maThietBi" data-cy="maThietBi" name="maThietBi" formControlName="maThietBi">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="maThietBiOption.id === editForm.get('thietBi')!.value?.id ?editForm.get('thietBi')!.value : maThietBiOption "
+              *ngFor="let maThietBiOption of thietBisSharedCollection; trackBy: trackThietBiById">
+              {{maThietBiOption.loaiThietBi}}</option>
+          </select>
+        </div>
+        
+      <div>
+        <label for="">
+          <p>Dây chuyền</p>
+        </label>
+        <select class="form-control" id="field_maThietBi" data-cy="maThietBi" name="maThietBi" formControlName="maThietBi">
+          <option [ngValue]="null"></option>
+          <option
+            [ngValue]="maThietBiOption.id === editForm.get('thietBi')!.value?.id ?editForm.get('thietBi')!.value : maThietBiOption "
+            *ngFor="let maThietBiOption of thietBisSharedCollection; trackBy: trackThietBiById">
+            {{maThietBiOption.dayChuyen}}</option>
+        </select>
+      </div>
+        
+      </header>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending">
+              <th scope="col" jhiSortBy="maKichBan"><span>Mã kịch bản</span></th>
+              <th scope="col" jhiSortBy="thongSo"><span>Mã sản phẩm</span></th>
+              <th scope="col" jhiSortBy="trangThai"><span>Version sản phẩm</span></th>
+              <th scope="col" jhiSortBy="phanLoai"><span>UpdateBy</span></th>
+              <th scope="col" jhiSortBy="phanLoai"><span>Trạng thái</span></th>
+
+              <!-- <th scope="col" jhiSortBy="thietBi.id"><span>Thiet Bi</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col"></th>
+            </tr>
+          </thead>
+        </table>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+      </div>
+    </form>
+  </div>
+</div>

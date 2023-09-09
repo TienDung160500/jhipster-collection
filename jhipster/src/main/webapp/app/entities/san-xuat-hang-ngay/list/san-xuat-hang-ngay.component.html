@@ -1,0 +1,112 @@
+<div>
+  <h2 id="page-heading" data-cy="SanXuatHangNgayHeading">
+    <span>Sản xuất hàng ngày</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-san-xuat-hang-ngay"
+        [routerLink]="['/san-xuat-hang-ngay/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Thêm mới </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="sanXuatHangNgays?.length === 0">
+    <span>No sanXuatHangNgays found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="sanXuatHangNgays && sanXuatHangNgays.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending">
+          <th scope="col" jhiSortBy="id"><span>STT</span></th>
+          <th scope="col" jhiSortBy="maKichBan"><span>Mã kịch bản</span></th>
+          <th scope="col" jhiSortBy="maThietBi"><span>Mã thiết bị</span></th>
+          <th scope="col" jhiSortBy="loaiThietBi"><span>Loại thiết bị</span></th>
+          <th scope="col" jhiSortBy="dayChuyen"><span>Dây chuyền</span></th>
+          <th scope="col" jhiSortBy="maSanPham"><span>Mã sản phẩm</span></th>
+          <th scope="col" jhiSortBy="versionSanPham"><span>Vesion sản phẩm</span></th>
+          <th scope="col" jhiSortBy="ngayTao"><span>Ngày tạo</span></th>
+          <th scope="col" jhiSortBy="timeUpdate"><span>Time Update</span></th>
+          <th scope="col" jhiSortBy="trangThai"><span>Trạng thái</span></th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sanXuatHangNgay of sanXuatHangNgays; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/san-xuat-hang-ngay', sanXuatHangNgay.id, 'view']">{{ sanXuatHangNgay.id }}</a>
+          </td>
+          <td>{{ sanXuatHangNgay.maKichBan }}</td>
+          <td>{{ sanXuatHangNgay.maThietBi }}</td>
+          <td>{{ sanXuatHangNgay.loaiThietBi }}</td>
+          <td>{{ sanXuatHangNgay.dayChuyen }}</td>
+          <td>{{ sanXuatHangNgay.maSanPham }}</td>
+          <td>{{ sanXuatHangNgay.versionSanPham }}</td>
+          <td>{{ sanXuatHangNgay.ngayTao | formatMediumDatetime }}</td>
+          <td>{{ sanXuatHangNgay.timeUpdate | formatMediumDatetime }}</td>
+          <td>{{ sanXuatHangNgay.trangThai }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/san-xuat-hang-ngay', sanXuatHangNgay.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/san-xuat-hang-ngay', sanXuatHangNgay.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(sanXuatHangNgay)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="sanXuatHangNgays && sanXuatHangNgays.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

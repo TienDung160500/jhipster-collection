@@ -1,0 +1,84 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="kichBan">
+      <h2 data-cy="kichBanDetailsHeading"><span>Kịch bản</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending">
+            <th scope="col" jhiSortBy="id"><span>STT</span></th>
+            <th scope="col" jhiSortBy="maKichBan"><span>Mã kịch bản</span></th>
+            <th scope="col" jhiSortBy="maThietBi"><span>Mã thiết bị</span></th>
+            <th scope="col" jhiSortBy="loaiThietBi"><span>Loại thiết bị</span></th>
+            <th scope="col" jhiSortBy="dayChuyen"><span>Dây chuyền</span></th>
+            <th scope="col" jhiSortBy="manSanPham"><span>Mã sản phẩm</span></th>
+            <th scope="col" jhiSortBy="versionSanPham"><span>Version sản phẩm</span></th>
+            <th scope="col" jhiSortBy="ngayTao"><span>Ngày tạo</span></th>
+            <th scope="col" jhiSortBy="timeUpdate"><span>Ngày cập nhật</span></th>
+            <th scope="col" jhiSortBy="updateBy"><span>Update By</span></th>
+            <th scope="col" jhiSortBy="status"><span>Trạng thái</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <td>
+            <span>{{ kichBan.id }}</span>
+          </td>
+          
+          <td>
+            <span>{{ kichBan.maKichBan }}</span>
+          </td>
+          
+          <td>
+            <span>{{ kichBan.maThietBi }}</span>
+          </td>
+          
+          <td>
+            <span>{{ kichBan.loaiThietBi }}</span>
+          </td>
+          
+          <td>
+            <span>{{ kichBan.dayChuyen }}</span>
+          </td>
+          
+          <td>
+            <span>{{ kichBan.maSanPham }}</span>
+          </td>
+          
+          <td>
+            <span>{{ kichBan.versionSanPham }}</span>
+          </td>
+          
+          <td>
+            <span>{{ kichBan.ngayTao | formatMediumDatetime }}</span>
+          </td>
+          
+          <td>
+            <span>{{ kichBan.timeUpdate | formatMediumDatetime }}</span>
+          </td>
+          
+          <td>
+            <span>{{ kichBan.updateBy }}</span>
+          </td>
+          
+          <td>
+            <span>{{ kichBan.trangThai }}</span>
+          </td>
+        </tbody>
+      </table>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/kich-ban', kichBan.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

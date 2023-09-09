@@ -1,0 +1,138 @@
+<div>
+  <h2 id="page-heading" data-cy="ThietBiHeading">
+    <span>Thiết Bị</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-thiet-bi"
+        [routerLink]="['/thiet-bi/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Thêm mới </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="thietBis?.length === 0">
+    <span>No thietBis found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="thietBis && thietBis.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id"><span>STT</span></th>
+          <th scope="col" jhiSortBy="maThietBi">
+            <span>Mã thiết bị</span>
+            <input #searchInput type="text" [(ngModel)]="searchKeyword" (input)="onSearchInput()" (keyup.enter)="onSearchEnter()" placeholder="search" />
+
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.maThietBi }}</li>
+            </ul>
+          </th>
+
+          <th scope="col" jhiSortBy="loaiThietBi">
+            <span>Loại thiết bị</span>
+            <input type="text" />
+          </th>
+          <th scope="col" jhiSortBy="dayChuyen">
+            <span>Dây chuyền</span>
+            <input type="text" />
+          </th>
+          <th scope="col" jhiSortBy="ngayTao">
+            <span>Ngày tạo</span>
+            <input type="datetime-local" />
+          </th>
+          <th scope="col" jhiSortBy="timeUpdate" style="width: 160px">
+            <span>Thời gian cập nhật</span>
+            <input type="datetime-local" />
+          </th>
+          <th scope="col" jhiSortBy="updateBy">
+            <span>Update By</span>
+            <input type="text" />
+          </th>
+          <th scope="col" jhiSortBy="status">
+            <span>Trạng thái</span>
+            <input type="text" />
+          </th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let thietBi of thietBis; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/thiet-bi', thietBi.id, 'view']">{{ thietBi.id }}</a>
+          </td>
+          <td>{{ thietBi.maThietBi }}</td>
+          <td>{{ thietBi.loaiThietBi }}</td>
+          <td>{{ thietBi.dayChuyen }}</td>
+          <td>{{ thietBi.ngayTao | formatMediumDatetime }}</td>
+          <td>{{ thietBi.timeUpdate | formatMediumDatetime }}</td>
+          <td>{{ thietBi.updateBy }}</td>
+          <td>{{ thietBi.status }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/thiet-bi', thietBi.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/thiet-bi', thietBi.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(thietBi)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="thietBis && thietBis.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

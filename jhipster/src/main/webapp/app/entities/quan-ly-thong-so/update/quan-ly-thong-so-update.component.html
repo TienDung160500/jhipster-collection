@@ -1,0 +1,196 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-quan-ly-thong-so-heading" data-cy="QuanLyThongSoCreateUpdateHeading">Thêm mới quản lý thông số</h2>
+
+      <header class="header-qly-thong-so">
+        <div class="input-qly-thong-so">
+          <label class="form-label" for="field_maThietBi">
+            <p>Mã thiết bị</p>
+          </label>
+          <select class="form-control" id="field_maThietBi" data-cy="maThietBi" name="maThietBi" formControlName="maThietBi">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="maThietBiOption.id === editForm1.get('thietBi')!.value?.id ?editForm1.get('thietBi')!.value : maThietBiOption "
+              *ngFor="let maThietBiOption of thietBiQlyThongSo; trackBy: trackThietBiById">{{maThietBiOption.maThietBi}}
+            </option>
+          </select>
+        </div>
+
+        <div class="input-qly-thong-so">
+          <label class="form-label" for="field_maThietBi">
+            <p>Loại thiết bị</p>
+          </label>
+          <select class="form-control" id="field_maThietBi" data-cy="maThietBi" name="maThietBi" formControlName="maThietBi">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="maThietBiOption.id === editForm.get('thietBi')!.value?.id ?editForm.get('thietBi')!.value : maThietBiOption "
+              *ngFor="let maThietBiOption of thietBiQlyThongSo; trackBy: trackThietBiById">{{maThietBiOption.maThietBi}}
+            </option>
+          </select>
+        </div>
+      </header>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending">
+              <th scope="col" jhiSortBy="id"><span>STT</span></th>
+              <th scope="col" jhiSortBy="thongSo"><span>Mã thông số</span></th>
+              <th scope="col" jhiSortBy="thongSo"><span>Thông số</span></th>
+              <th scope="col" jhiSortBy="thongSo"><span>Mô tả</span></th>
+              <th scope="col" jhiSortBy="trangThai"><span>Trạng thái</span></th>
+              <th scope="col">Options</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let thongSoMay of thongSoThietBi; trackBy: trackId" data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/thong-so-may', thongSoMay.id, 'view']">{{ thongSoMay.id }}</a>
+              </td>
+
+              <td>{{ thongSoMay.maThongSo }}
+                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
+                  formControlName="loaiThietBi" />
+              </td>
+              <td>{{ thongSoMay.tenThongSo }}
+                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
+                  formControlName="loaiThietBi" />
+              </td>
+              <td>{{ thongSoMay.moTa }}
+                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
+                  formControlName="loaiThietBi" />
+              </td>
+              <td>{{ thongSoMay.status }}
+                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
+                  formControlName="loaiThietBi" />
+              </td>
+              <td>{{ thongSoMay.status }}
+                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
+                  formControlName="loaiThietBi" />
+              </td>
+              <td>{{ thongSoMay.status }}
+                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
+                  formControlName="loaiThietBi" />
+              </td>
+              <!-- <td>{{ thongSoMay.phanLoai }}</td> -->
+              <td>
+                <div *ngIf="thongSoMay.maThongSo">
+                  <!-- <a [routerLink]="['/thiet-bi', thongSoMay.maThongSo.id, 'view']">{{ thongSoMay.maThongSo?.id }}</a> -->
+                </div>
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <!-- <button type="submit" [routerLink]="['/thong-so-may', thongSoMay.id, 'view']" class="btn btn-info btn-sm"
+                              data-cy="entityDetailsButton">
+                              <fa-icon icon="eye"></fa-icon>
+                              <span class="d-none d-md-inline">View</span>
+                            </button>
+                    
+                            <button type="submit" [routerLink]="['/thong-so-may', thongSoMay.id, 'edit']" class="btn btn-primary btn-sm"
+                              data-cy="entityEditButton">
+                              <fa-icon icon="pencil-alt"></fa-icon>
+                              <span class="d-none d-md-inline">Edit</span>
+                            </button> -->
+          
+                  <!-- <button type="submit" (click)="delete(thongSoMay)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline">Delete</span>
+                  </button> -->
+                </div>
+              </td>
+            </tr>
+          </tbody>
+
+
+        </table>
+
+        <!-- <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" for="field_id">STT</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_maThongSo">Mã thông số</label>
+          <input type="text" class="form-control" name="maThongSo" id="field_maThongSo" data-cy="maThongSo" formControlName="maThongSo" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_tenThongSo">Tên thông số</label>
+          <input
+            type="text"
+            class="form-control"
+            name="tenThongSo"
+            id="field_tenThongSo"
+            data-cy="tenThongSo"
+            formControlName="tenThongSo"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_moTa">Mô tả</label>
+          <input type="text" class="form-control" name="moTa" id="field_moTa" data-cy="moTa" formControlName="moTa" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_ngayTao">Ngày tạo</label>
+          <div class="d-flex">
+            <input
+              id="field_ngayTao"
+              data-cy="ngayTao"
+              type="datetime-local"
+              class="form-control"
+              name="ngayTao"
+              formControlName="ngayTao"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_ngayUpdate">Ngày cập nhật</label>
+          <div class="d-flex">
+            <input
+              id="field_ngayUpdate"
+              data-cy="ngayUpdate"
+              type="datetime-local"
+              class="form-control"
+              name="ngayUpdate"
+              formControlName="ngayUpdate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_updateBy">Cập nhật bởi</label>
+          <input type="text" class="form-control" name="updateBy" id="field_updateBy" data-cy="updateBy" formControlName="updateBy" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_status">Trạng thái</label>
+          <input type="text" class="form-control" name="status" id="field_status" data-cy="status" formControlName="status" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button> -->
+      </div>
+    </form>
+  </div>
+</div>
