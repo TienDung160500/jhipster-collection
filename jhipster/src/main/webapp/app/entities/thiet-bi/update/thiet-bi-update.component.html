@@ -8,7 +8,6 @@
         <span> Thêm mới thông số máy</span>
       </button> -->
 
-      
       <div>
         <jhi-alert-error></jhi-alert-error>
 
@@ -18,91 +17,56 @@
               <th scope="col" jhiSortBy="maThietBi"><span>Mã thiết bị</span></th>
               <th scope="col" jhiSortBy="loaiThietBi"><span>Loại thiết bị</span></th>
               <th scope="col" jhiSortBy="dayChuyen"><span>Dây chuyền</span></th>
-              <th scope="col" jhiSortBy="ngayTao"><span>Ngày tạo</span></th>
-              <th scope="col" jhiSortBy="timeUpdate"><span>Ngày cập nhật</span></th>
-              <th scope="col" jhiSortBy="updateBy"><span>Update By</span> </th>
               <th scope="col" jhiSortBy="trangThai"><span>Trạng thái</span></th>
               <th scope="col"></th>
             </tr>
           </thead>
 
           <tbody>
-            <tr  data-cy="entityTable">
+            <tr data-cy="entityTable">
               <td>
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
-                  formControlName="loaiThietBi" />
+                <input
+                  type="text"
+                  class="form-control"
+                  name="loaiThietBi"
+                  id="field_loaiThietBi"
+                  data-cy="loaiThietBi"
+                  formControlName="loaiThietBi"
+                />
               </td>
               <td>
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
-                  formControlName="loaiThietBi" />
+                <input
+                  type="text"
+                  class="form-control"
+                  name="loaiThietBi"
+                  id="field_loaiThietBi"
+                  data-cy="loaiThietBi"
+                  formControlName="loaiThietBi"
+                />
               </td>
               <td>
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
-                  formControlName="loaiThietBi" />
+                <input
+                  type="text"
+                  class="form-control"
+                  name="loaiThietBi"
+                  id="field_loaiThietBi"
+                  data-cy="loaiThietBi"
+                  formControlName="loaiThietBi"
+                />
               </td>
               <td>
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
-                  formControlName="loaiThietBi" />
-              </td>
-              <td>
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
-                  formControlName="loaiThietBi" />
-              </td>
-              <td>
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
-                  formControlName="loaiThietBi" />
-              </td>
-              <td>
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
-                  formControlName="loaiThietBi" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-      <h2 id="jhi-thiet-bi-heading" data-cy="ThietBiCreateUpdateHeading">Thêm mới thông số</h2>
-        <button id="jh-create-entity" class="btn btn-primary jh-create-entity create-thong-so-may">
-          <fa-icon icon="plus"></fa-icon>
-          <span> Thêm mới thông số</span>
-        </button>
-        <table class="table table-striped" aria-describedby="page-heading">
-          <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending">
-              <th scope="col" jhiSortBy="maThietBi"><span>Thông số</span></th>
-              <th scope="col" jhiSortBy="loaiThietBi"><span>Mô tả</span></th>
-              <th scope="col" jhiSortBy="updateBy"><span>Phân loại</span> </th>
-              <th scope="col" jhiSortBy="trangThai"><span>Trạng thái</span></th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr  data-cy="entityTable">
-              <td>
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
-                  formControlName="loaiThietBi" />
-              </td>
-              <td>
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
-                  formControlName="loaiThietBi" />
-              </td>
-              <td>
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
-                  formControlName="loaiThietBi" />
-              </td>
-              <td>
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
-                  formControlName="loaiThietBi" />
+                <input
+                  type="text"
+                  class="form-control"
+                  name="loaiThietBi"
+                  id="field_loaiThietBi"
+                  data-cy="loaiThietBi"
+                  formControlName="loaiThietBi"
+                />
               </td>
             </tr>
           </tbody>
         </table>
-
-      <div>
-        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
-        </button>
-
         <button
           type="submit"
           id="save-entity"
@@ -112,7 +76,82 @@
         >
           <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
         </button>
-      </div>
+
+        <h2 id="jhi-thiet-bi-heading" data-cy="ThietBiCreateUpdateHeading">Thêm mới thông số thiết bị</h2>
+          <!-- <button id="jh-create-entity" class="btn btn-primary jh-create-entity create-thong-so-may" (click)="addRow()">
+            <fa-icon icon="plus"></fa-icon>
+          </button> -->
+
+          <button (click)="addRow()"></button>
+
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending">
+              <th scope="col" jhiSortBy="maThietBi"><span>Thông số</span></th>
+              <th scope="col" jhiSortBy="loaiThietBi"><span>Mô tả</span></th>
+              <th scope="col" jhiSortBy="updateBy"><span>Phân loại</span></th>
+              <th scope="col" jhiSortBy="trangThai"><span>Trạng thái</span></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr data-cy="entityTable">
+              <td>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="thongSo"
+                  id="thongSo"
+                  formControlName="thongSo"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="moTa"
+                  id="moTa"
+                  formControlName="moTa"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="phanLoai"
+                  id="phanLoai"
+                  formControlName="phanLoai"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="status"
+                  id="status"
+                  formControlName="status"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div>
+          <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+            <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+          </button>
+
+          <button
+            type="submit"
+            id="save-entity"
+            data-cy="entityCreateSaveButton"
+            [disabled]="editForm.invalid || isSaving"
+            class="btn btn-primary"
+          >
+            <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+          </button>
+        </div>
       </div>
     </form>
   </div>

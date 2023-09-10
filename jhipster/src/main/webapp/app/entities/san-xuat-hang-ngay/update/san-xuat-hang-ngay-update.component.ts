@@ -16,6 +16,7 @@ import { SanXuatHangNgayService } from '../service/san-xuat-hang-ngay.service';
 @Component({
   selector: 'jhi-san-xuat-hang-ngay-update',
   templateUrl: './san-xuat-hang-ngay-update.component.html',
+  styleUrls: ['./san-xuat-hang-ngay-update.component.css']
 })
 export class SanXuatHangNgayUpdateComponent implements OnInit {
   isSaving = false;

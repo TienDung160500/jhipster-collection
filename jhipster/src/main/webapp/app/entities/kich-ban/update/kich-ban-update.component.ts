@@ -1,7 +1,7 @@
 import { IThietBi } from 'app/entities/thiet-bi/thiet-bi.model';
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { KichBanService } from '../service/kich-ban.service';
 @Component({
   selector: 'jhi-kich-ban-update',
   templateUrl: './kich-ban-update.component.html',
-  styleUrls: ['./kich-ban-update.component.css']
+  styleUrls: ['./kich-ban-update.component.css'],
 })
 export class KichBanUpdateComponent implements OnInit {
   isSaving = false;
@@ -23,6 +23,9 @@ export class KichBanUpdateComponent implements OnInit {
   ascending!: boolean;
 
   thietBisSharedCollection: IThietBi[] = [];
+  kichBansSharedCollection: IKichBan[] = [];
+
+  form!: FormGroup;
 
   editForm = this.fb.group({
     id: [],
@@ -38,7 +41,16 @@ export class KichBanUpdateComponent implements OnInit {
     trangThai: [],
   });
 
-  constructor(protected kichBanService: KichBanService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
+  constructor(protected kichBanService: KichBanService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {
+    this.form = this.fb.group({
+      maKichBan: null,
+      tenKichBan: null,
+      maThietBi: null,
+      loaiThietBi: null,
+      maSanPham: null,
+      verSanPham: null,
+    });
+  }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ kichBan }) => {
@@ -52,10 +64,33 @@ export class KichBanUpdateComponent implements OnInit {
     });
   }
 
+  onMaKichBanChange():void {
+    const selectedMaKichBan = this.form.get('maKichBan')?.value;
+
+    const selectedThietBi = this.kichBansSharedCollection.find(item => item.id === selectedMaKichBan);
+
+    if (selectedThietBi) {
+      // Cập nhật các giá trị khác trong form
+      this.form.patchValue({
+        maThietBi: selectedThietBi.maThietBi,
+        loaiThietBi: selectedThietBi.loaiThietBi,
+        maSanPham: selectedThietBi.maSanPham,
+        versionSanPham: selectedThietBi.versionSanPham,
+      });
+    } else {
+      this.form.patchValue({
+        maThietBi: null,
+        loaiThietBi: null,
+        maSanPham: null,
+        versionSanPham: null,
+      });
+    }
+  }
+
   previousState(): void {
     window.history.back();
   }
-  
+
   trackThietBiById(_index: number, item: IThietBi): number {
     return item.id!;
   }

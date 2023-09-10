@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { ApplicationConfigService } from 'app/core/config/application-config.service';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { HttpHeaders, HttpResponse, HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -13,10 +14,35 @@ import { KichBanDeleteDialogComponent } from '../delete/kich-ban-delete-dialog.c
 @Component({
   selector: 'jhi-kich-ban',
   templateUrl: './kich-ban.component.html',
-  styleUrls: ['./kich-ban.component.css']
+  styleUrls: ['./kich-ban.component.css'],
 })
 export class KichBanComponent implements OnInit {
-  kichBans?: IKichBan[];
+  resourceUrl = this.applicationConfigService.getEndpointFor('api/kich-bans/tim-kiem');
+
+  @Input() maKichBan = '';
+  @Input() maThietBi = '';
+  @Input() loaiThietBi = '';
+  @Input() dayChuyen = '';
+  @Input() maSanPham = '';
+  @Input() versionSanPham = '';
+  @Input() ngayTao = null;
+  @Input() timeUpdate = null;
+  @Input() updateBy = '';
+  @Input() trangThai = '';
+
+  // lưu từ khóa tìm kiếm
+  searchKeyword = '';
+  // lưu kết quả tìm kiếm
+  seachResult: any[] = [];
+  // lưu các gợi ý tìm kiếm
+  searchSuggestions: string[] = [];
+  // hiển thị danh sácsh tìm kiếm
+  showSuggestions = false;
+  // theo dõi sự kiện keyup trên ô tìm kiếm
+  @ViewChild('searchInput', { static: true })
+  searchInput!: ElementRef;
+
+  kichBans?: IKichBan[] =[];
   isLoading = false;
   totalItems = 0;
   itemsPerPage = ITEMS_PER_PAGE;
@@ -25,12 +51,47 @@ export class KichBanComponent implements OnInit {
   ascending!: boolean;
   ngbPaginationPage = 1;
 
+  searchResults: IKichBan[] = [];
+
   constructor(
     protected kichBanService: KichBanService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    protected http: HttpClient,
+    protected applicationConfigService: ApplicationConfigService
   ) {}
+
+  timKiemKichBan(): void {
+    //xoa du lieu cu
+    this.kichBans = [];
+    //request den server
+    const timKiem = {
+      maKichBan: this.maKichBan,
+      maThietBi: this.maThietBi,
+      loaiThietBi: this.loaiThietBi,
+      dayChuyen: this.dayChuyen,
+      maSanPham: this.maSanPham,
+      versionSanPham: this.versionSanPham,
+      ngayTao: this.ngayTao,
+      timeUpdate: this.timeUpdate,
+      updateBy: '',
+      trangThai: this.trangThai,
+    };
+    if (sessionStorage.getItem(JSON.stringify(timKiem)) === null) {
+      this.http.post<any>(this.resourceUrl, timKiem).subscribe(res => {
+        //luu du lieu tra ve de hien thi len front-end
+        this.kichBans = res;
+        console.log('tim kiem', timKiem);
+        sessionStorage.setItem(JSON.stringify(timKiem), res);
+      });
+    } else {
+      const result = sessionStorage.getItem(JSON.stringify(timKiem));
+      if (result) {
+        this.kichBans = JSON.parse(result);
+      }
+    }
+  }
 
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -22,6 +22,8 @@ export class ThietBiUpdateComponent implements OnInit {
 
   thietBisSharedCollection: IThietBi[] = [];
 
+  form: FormGroup;
+
   editForm = this.fb.group({
     id: [],
     maThietBi: [],
@@ -33,7 +35,17 @@ export class ThietBiUpdateComponent implements OnInit {
     status: [],
   });
 
-  constructor(protected thietBiService: ThietBiService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
+  constructor(
+    protected thietBiService: ThietBiService,
+    protected activatedRoute: ActivatedRoute,
+    protected fb: FormBuilder) {
+    this.form = this.fb.group({
+      maThietBi: ['', Validators.required],
+      loaiThietBi: ['', Validators.required],
+      updateBy: ['', Validators.required],
+      trangThai: ['', Validators.required],
+    })
+     }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ thietBi }) => {
@@ -57,6 +69,12 @@ export class ThietBiUpdateComponent implements OnInit {
 
   trackThietBiById(_index: number, item: IThietBi): number {
     return item.id!;
+  }
+
+  addRow():void {
+    if (this.form.valid) {
+      this.form.reset();
+    }
   }
 
   save(): void {

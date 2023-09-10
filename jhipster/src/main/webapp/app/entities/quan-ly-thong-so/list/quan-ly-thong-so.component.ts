@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { ApplicationConfigService } from 'app/core/config/application-config.service';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { HttpHeaders, HttpResponse, HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -13,9 +14,19 @@ import { QuanLyThongSoDeleteDialogComponent } from '../delete/quan-ly-thong-so-d
 @Component({
   selector: 'jhi-quan-ly-thong-so',
   templateUrl: './quan-ly-thong-so.component.html',
-  styleUrls: ['./quan-ly-thong-so.component.css']
+  styleUrls: ['./quan-ly-thong-so.component.css'],
 })
 export class QuanLyThongSoComponent implements OnInit {
+  resourceUrl = this.applicationConfigService.getEndpointFor('api/quan-ly-thong-so/tim-kiem');
+
+  @Input() maThongSo = '';
+  @Input() tenThongSo = '';
+  @Input() moTa = '';
+  @Input() ngayTao = null;
+  @Input() ngayUpdate = null;
+  @Input() updateBy = '';
+  @Input() status = '';
+
   quanLyThongSos?: IQuanLyThongSo[];
   isLoading = false;
   totalItems = 0;
@@ -25,12 +36,55 @@ export class QuanLyThongSoComponent implements OnInit {
   ascending!: boolean;
   ngbPaginationPage = 1;
 
+  // lưu từ khóa tìm kiếm
+  searchKeyword = '';
+  // lưu kết quả tìm kiếm
+  seachResult: any[] = [];
+  // lưu các gợi ý tìm kiếm
+  searchSuggestions: string[] = [];
+  // hiển thị danh sácsh tìm kiếm
+  showSuggestions = false;
+  // theo dõi sự kiện keyup trên ô tìm kiếm
+  @ViewChild('searchInput', { static: true })
+  searchInput!: ElementRef;
+
+  searchResults: IQuanLyThongSo[] = [];
+
   constructor(
     protected quanLyThongSoService: QuanLyThongSoService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    protected http: HttpClient,
+    protected applicationConfigService: ApplicationConfigService
   ) {}
+
+  timKiemThietBi(): void {
+    //xoa du lieu cu
+    this.searchResults = [];
+    //request den server
+    const timKiem = {
+      maThongSo: this.maThongSo,
+      tenThongSo: this.tenThongSo,
+      moTa: this.moTa,
+      ngayTao: this.ngayTao,
+      ngayUpdate: this.ngayUpdate,
+      updateBy: '',
+      status: this.status,
+    };
+    if (sessionStorage.getItem('thiet bi' + JSON.stringify(timKiem)) === null) {
+      this.http.post<any>(this.resourceUrl, timKiem).subscribe(res => {
+        //luu du lieu tra ve de hien thi len front-end
+        this.quanLyThongSos = res;
+        sessionStorage.setItem('thiet bi' + JSON.stringify(timKiem), res);
+      });
+    } else {
+      const result = sessionStorage.getItem('thiet bi' + JSON.stringify(timKiem));
+      if (result) {
+        this.searchResults = JSON.parse(result);
+      }
+    }
+  }
 
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;
@@ -116,3 +170,4 @@ export class QuanLyThongSoComponent implements OnInit {
     this.ngbPaginationPage = this.page ?? 1;
   }
 }
+

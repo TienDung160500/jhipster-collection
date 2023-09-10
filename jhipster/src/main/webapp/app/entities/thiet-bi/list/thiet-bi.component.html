@@ -35,7 +35,7 @@
           <th scope="col" jhiSortBy="id"><span>STT</span></th>
           <th scope="col" jhiSortBy="maThietBi">
             <span>Mã thiết bị</span>
-            <input #searchInput type="text" [(ngModel)]="searchKeyword" (input)="maThietBi" (keyup.enter)="timKiemThietBi()" placeholder="search" />
+            <input #searchInput type="text" [(ngModel)]="maThietBi" (keyup.enter)= "timKiemThietBi()" placeholder="search" />
 
             <ul>
               <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
@@ -54,9 +54,10 @@
             </ul>
 
             <ul *ngIf="searchResults.length > 0">
-              <li *ngFor="let result of searchResults">{{ result.maThietBi }}</li>
+              <li *ngFor="let result of searchResults">{{ result.loaiThietBi }}</li>
             </ul>
           </th>
+          
           <th scope="col" jhiSortBy="dayChuyen">
             <span>Dây chuyền</span>
             <input type="text" />
@@ -65,7 +66,7 @@
             </ul>
 
             <ul *ngIf="searchResults.length > 0">
-              <li *ngFor="let result of searchResults">{{ result.maThietBi }}</li>
+              <li *ngFor="let result of searchResults">{{ result.dayChuyen }}</li>
             </ul>
           </th>
           <th scope="col" jhiSortBy="ngayTao">
@@ -84,7 +85,7 @@
             </ul>
 
             <ul *ngIf="searchResults.length > 0">
-              <li *ngFor="let result of searchResults">{{ result.maThietBi }}</li>
+              <li *ngFor="let result of searchResults">{{ result.updateBy }}</li>
             </ul>
           </th>
           <th scope="col" jhiSortBy="status">
@@ -95,7 +96,7 @@
             </ul>
 
             <ul *ngIf="searchResults.length > 0">
-              <li *ngFor="let result of searchResults">{{ result.maThietBi }}</li>
+              <li *ngFor="let result of searchResults">{{ result.status }}</li>
             </ul>
           </th>
           <th scope="col">Options</th>

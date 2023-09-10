@@ -148,7 +148,7 @@ public class UserController {
         return responseList;
     }
     //☺ Tim kiem kich ban
-    @PostMapping("/kich-ban/tim-kiem")
+    @PostMapping("/kich-bans/tim-kiem")
     public List<KichBanResponse> timKiemKichBan (@RequestBody KichBanRequest request){
         List<KichBanResponse> responseList = this.userServices.timKiemKichBan(request);
         return responseList;

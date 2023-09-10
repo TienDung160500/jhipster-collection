@@ -33,20 +33,96 @@
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
           <th scope="col" jhiSortBy="id"><span>STT</span></th>
-          <th scope="col" jhiSortBy="maThongSo"><span>Mã thông số</span></th>
-          <th scope="col" jhiSortBy="tenThongSo"><span>Tên thông số</span></th>
-          <th scope="col" jhiSortBy="moTa"><span>Mô tả</span></th>
-          <th scope="col" jhiSortBy="ngayTao"><span>Ngày tạo</span></th>
-          <th scope="col" jhiSortBy="ngayUpdate"><span>Ngày cập nhật</span></th>
-          <th scope="col" jhiSortBy="updateBy"><span>Update By</span></th>
-          <th scope="col" jhiSortBy="status"><span>Trạng thái</span></th>
+          <th scope="col" jhiSortBy="maThongSo">
+            <span>Mã thông số</span>
+            <input #searchInput type="text" [(ngModel)]="maThongSo" (keyup.enter)= "timKiemThietBi()" placeholder="search" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.maThongSo }}</li>
+            </ul>
+          </th>
+          <th scope="col" jhiSortBy="tenThongSo">
+            <span>Tên thông số</span>
+            <input type="text" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.tenThongSo }}</li>
+            </ul>
+          </th>
+
+          <th scope="col" jhiSortBy="moTa">
+            <span>Mô tả</span>
+            <input type="text" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.moTa }}</li>
+            </ul>
+          </th>
+
+          <th scope="col" jhiSortBy="ngayTao">
+            <span>Ngày tạo</span>
+            <input type="datetime-local" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.ngayTao }}</li>
+            </ul>
+          </th>
+
+          <th scope="col" jhiSortBy="ngayUpdate">
+            <span>Ngày cập nhật</span>
+            <input type="datetime-local" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.ngayUpdate }}</li>
+            </ul>
+          </th>
+
+          <th scope="col" jhiSortBy="updateBy">
+            <span>Update By</span>
+            <input type="text" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.updateBy }}</li>
+            </ul>
+          </th>
+
+          <th scope="col" jhiSortBy="status">
+            <span>Trạng thái</span>
+            <input type="text" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.status }}</li>
+            </ul>
+          </th>
+          
           <th scope="col">Options</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let quanLyThongSo of quanLyThongSos; trackBy: trackId" data-cy="entityTable">
+        <tr *ngFor="let quanLyThongSo of quanLyThongSos;let i = index; trackBy: trackId" data-cy="entityTable">
           <td>
-            <a [routerLink]="['/quan-ly-thong-so', quanLyThongSo.id, 'view']">{{ quanLyThongSo.id }}</a>
+            <a>{{i+1}}</a>
           </td>
           <td>{{ quanLyThongSo.maThongSo }}</td>
           <td>{{ quanLyThongSo.tenThongSo }}</td>

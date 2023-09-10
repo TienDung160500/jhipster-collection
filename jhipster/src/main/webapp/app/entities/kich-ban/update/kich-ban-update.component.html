@@ -1,60 +1,73 @@
-<div class="d-flex justify-content-center">
+<div class="">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-kich-ban-heading" data-cy="KichBanCreateUpdateHeading">Thêm mới kịch bản</h2>
       <header class="header-tsm">
+
         <div>
-          <label class="form-label" for="field_maThietBi">
-            <p>Mã thiết bị</p>
+          <label for="maKichBan">
+            <p>Mã kịch bản</p>
           </label>
-          <select class="form-control" id="field_maThietBi" data-cy="maThietBi" name="maThietBi" formControlName="maThietBi">
+          <select class="form-control" id="maKichBan" data-cy="maKichBan" name="maKichBan" formControlName="maKichBan" (change)="onMaKichBanChange()">
             <option [ngValue]="null"></option>
             <option
-              [ngValue]="maThietBiOption.id === editForm.get('thietBi')!.value?.id ?editForm.get('thietBi')!.value : maThietBiOption "
-              *ngFor="let maThietBiOption of thietBisSharedCollection; trackBy: trackThietBiById">
-              {{maThietBiOption.maThietBi}}</option>
+              [ngValue]="maKichBanOption.id === editForm.get('KichBan')!.value?.id ?editForm.get('KichBan')!.value : maKichBanOption "
+              *ngFor="let maKichBanOption of kichBansSharedCollection; trackBy: trackThietBiById">
+              {{maKichBanOption.maKichBan}}</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="maThietBi">
+            <p>Mã thiết bị</p>
+          </label>
+          <select class="form-control" id="maThietBi" name="maThietBi" formControlName="maThietBi">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="maKichBanOption.maThietBi"
+              *ngFor="let maKichBanOption of kichBansSharedCollection; trackBy: trackThietBiById">
+              {{maKichBanOption.maThietBi}}</option>
           </select>
         </div>
       
         <div>
-          <label for="">
+          <label for="loaiThietBi">
             <p>Loại thiết bị</p>
           </label>
-          <select class="form-control" id="field_maThietBi" data-cy="maThietBi" name="maThietBi" formControlName="maThietBi">
+          <select class="form-control" id="loaiThietBi" name="loaiThietBi" formControlName="loaiThietBi">
             <option [ngValue]="null"></option>
             <option
-              [ngValue]="maThietBiOption.id === editForm.get('thietBi')!.value?.id ?editForm.get('thietBi')!.value : maThietBiOption "
-              *ngFor="let maThietBiOption of thietBisSharedCollection; trackBy: trackThietBiById">
-              {{maThietBiOption.loaiThietBi}}</option>
+              [ngValue]="maKichBanOption.loaiThietBi"
+              *ngFor="let maKichBanOption of kichBansSharedCollection; trackBy: trackThietBiById">
+              {{maKichBanOption.loaiThietBi}}</option>
           </select>
         </div>
         
       <div>
-        <label for="">
+        <label for="maSanPham">
           <p>Mã sản phẩm</p>
         </label>
-        <select class="form-control" id="field_maThietBi" data-cy="maThietBi" name="maThietBi" formControlName="maThietBi">
+        <select class="form-control" id="maSanPham" name="maSanPham" formControlName="maSanPham">
           <option [ngValue]="null"></option>
           <option
-            [ngValue]="maThietBiOption.id === editForm.get('thietBi')!.value?.id ?editForm.get('thietBi')!.value : maThietBiOption "
-            *ngFor="let maThietBiOption of thietBisSharedCollection; trackBy: trackThietBiById">
-            {{maThietBiOption.dayChuyen}}</option>
+            [ngValue]="maKichBanOption.maSanPham"
+            *ngFor="let maKichBanOption of kichBansSharedCollection; trackBy: trackThietBiById">
+            {{maKichBanOption.maSanPham}}</option>  
         </select>
       </div>
 
       <div>
-        <label for="">
+        <label for="versionSanPham">
           <p>Version sản phẩm</p>
         </label>
-        <select class="form-control" id="field_maThietBi" data-cy="maThietBi" name="maThietBi" formControlName="maThietBi">
+        <select class="form-control" id="versionSanPham" name="versionSanPham" formControlName="versionSanPham">
           <option [ngValue]="null"></option>
           <option
-            [ngValue]="maThietBiOption.id === editForm.get('thietBi')!.value?.id ?editForm.get('thietBi')!.value : maThietBiOption "
-            *ngFor="let maThietBiOption of thietBisSharedCollection; trackBy: trackThietBiById">
-            {{maThietBiOption.dayChuyen}}</option>
+            [ngValue]="maKichBanOption.versionSanPham"
+            *ngFor="let maKichBanOption of kichBansSharedCollection; trackBy: trackThietBiById">
+            {{maKichBanOption.versionSanPham}}</option>
         </select>
       </div>
-        
       </header>
 
       <div>

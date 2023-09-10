@@ -32,15 +32,106 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending">
-          <th scope="col" jhiSortBy="id"><span>STT</span></th>
-          <th scope="col" jhiSortBy="maKichBan"><span>Mã kịch bản</span></th>
-          <th scope="col" jhiSortBy="maSanPham"><span>Mã sản phẩm</span></th>
-          <th scope="col" jhiSortBy="versionSanPham"><span>Version sản phẩm</span></th>
-          <th scope="col" jhiSortBy="versionSanPham"><span>Tên sản phẩm</span></th>
-          <th scope="col" jhiSortBy="ngayTao"><span>Ngày tạo</span></th>
-          <th scope="col" jhiSortBy="timeUpdate"><span>Time Update</span></th>
-          <th scope="col" jhiSortBy="updateBy"><span>Update By</span></th>
-          <th scope="col" jhiSortBy="trangThai"><span>Trạng thái</span></th>
+          <th scope="col" jhiSortBy="id">
+            <span>STT</span>
+
+          </th>
+          <th scope="col" jhiSortBy="maKichBan">
+            <span>Mã kịch bản</span>
+            <input #searchInput type="text" [(ngModel)]="maKichBan" (keyup.enter)= "timKiemKichBan()" placeholder="search" />
+
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.maKichBan }}</li>
+            </ul>
+          </th>
+          <th scope="col" jhiSortBy="maSanPham">
+            <span>Mã sản phẩm</span>
+            <input #searchInput type="text" [(ngModel)]="maSanPham" (keyup.enter)= "timKiemKichBan()" placeholder="search" />
+
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.maSanPham }}</li>
+            </ul>
+          </th>
+          <th scope="col" jhiSortBy="versionSanPham">
+            <span>Version sản phẩm</span>
+            <input #searchInput type="text" [(ngModel)]="versionSanPham" (keyup.enter)= "timKiemKichBan()" placeholder="search" />
+
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.versionSanPham }}</li>
+            </ul>
+          </th>
+          <th scope="col" jhiSortBy="maSanPham">
+            <span>Mã sản phẩm</span>
+            <input #searchInput type="text" [(ngModel)]="maSanPham" (keyup.enter)= "timKiemKichBan()" placeholder="search" />
+
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.maSanPham }}</li>
+            </ul>
+          </th>
+          <th scope="col" jhiSortBy="ngayTao">
+            <span>Ngày tạo</span>
+            <input #searchInput type="text" [(ngModel)]="ngayTao" (keyup.enter)= "timKiemKichBan()" placeholder="search" />
+
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.ngayTao }}</li>
+            </ul>
+          </th>
+          <th scope="col" jhiSortBy="timeUpdate">
+            <span>Time Update</span>
+            <input #searchInput type="text" [(ngModel)]="timeUpdate" (keyup.enter)= "timKiemKichBan()" placeholder="search" />
+
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.timeUpdate }}</li>
+            </ul>
+          </th>
+          <th scope="col" jhiSortBy="updateBy">
+            <span>Update By</span>
+            <input #searchInput type="text" [(ngModel)]="updateBy" (keyup.enter)= "timKiemKichBan()" placeholder="search" />
+
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.updateBy }}</li>
+            </ul>
+          </th>
+          <th scope="col" jhiSortBy="trangThai">
+            <span>Trạng thái</span>
+            <input #searchInput type="text" [(ngModel)]="trangThai" (keyup.enter)= "timKiemKichBan()" placeholder="search" />
+
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.trangThai }}</li>
+            </ul>
+          </th>
           <th scope="col">Options</th>
         </tr>
       </thead>

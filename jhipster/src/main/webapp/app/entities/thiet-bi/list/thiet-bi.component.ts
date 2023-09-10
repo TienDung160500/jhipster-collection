@@ -83,29 +83,31 @@ export class ThietBiComponent implements OnInit {
           this.onError();
         },
       });
+    // console.log("page", this.thietBis);
+
   }
 
   ngOnInit(): void {
     this.handleNavigation();
     // sử dụng fromEvent để tạo 1 Observable từ keyup
-    // fromEvent(this.searchInput.nativeElement, 'keyup')
-    //   .pipe(
-    //     // sử dụng toán tử để quản lý sự kiện nhập
-    //     debounceTime(300),
-    //     distinctUntilChanged(),
-    //     switchMap(() => {
-    //       if (this.searchKeyword.trim() === '') {
-    //         return [];
-    //       }
-    //       //  kiểm tra từ khóa tìm kiếm không trống thì gọi hàm fetchSearcgSuggestions để lấy gợi ý
-    //       return this.fetchSearchSuggestions(this.searchKeyword);
-    //     })
-    //   )
-    //   // kết quả gợi ý được lưu trong searchSuggestions và giao diện người dùng được cập nhật để hiển thị danh sách gợi ý
-    //   .subscribe(suggestions => {
-    //     this.searchSuggestions = suggestions;
-    //     this.showSuggestions = true;
-    //   });
+    fromEvent(this.searchInput.nativeElement, 'keyup')
+      .pipe(
+        // sử dụng toán tử để quản lý sự kiện nhập
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap(() => {
+          if (this.searchKeyword.trim() === '') {
+            return [];
+          }
+          //  kiểm tra từ khóa tìm kiếm không trống thì gọi hàm fetchSearcgSuggestions để lấy gợi ý
+          return this.fetchSearchSuggestions(this.searchKeyword);
+        })
+      )
+      // kết quả gợi ý được lưu trong searchSuggestions và giao diện người dùng được cập nhật để hiển thị danh sách gợi ý
+      .subscribe(suggestions => {
+        this.searchSuggestions = suggestions;
+        this.showSuggestions = true;
+      });
   }
 
   // được gọi mỗi khi có sự kiện nhập trong ô tìm kiếm, kiểm tra nếu từ khóa tìm kiếm trống thì showSuggestions là false
@@ -116,19 +118,19 @@ export class ThietBiComponent implements OnInit {
   }
 
   // được gọi khi người dùng enter. đặt showSuggestions thành false và gọi phương thức search() để thực hiện tìm kiếm
-  // onSearchEnter(): void {
-  //   this.showSuggestions = false;
-  //   this.search();
-  // }
+  onSearchEnter(): void {
+    this.showSuggestions = false;
+    this.search();
+  }
 
   // thực hiện tìm kiếm bằng cách gọi fetchSearchResults, sau đó cập nhật searchResult với kq tìm kiếm và lưu vào sessionStorage để tạo bộ nhớ cache
-  // search(): void {
-  //   this.fetchSearchResults().subscribe(res => {
-  //     // console.log('tim kiem', res);
-  //     // this.searchResults = res as any;
-  //     sessionStorage.setItem('thiet bi' + JSON.stringify(this.searchKeyword), JSON.stringify(res));
-  //   });
-  // }
+  search(): void {
+    this.fetchSearchResults().subscribe(res => {
+      // console.log('tim kiem', res);
+      // this.searchResults = res as any;
+      sessionStorage.setItem('thiet bi' + JSON.stringify(this.searchKeyword), JSON.stringify(res));
+    });
+  }
 
   trackId(_index: number, item: IThietBi): number {
     return item.id!;
@@ -188,38 +190,38 @@ export class ThietBiComponent implements OnInit {
     this.ngbPaginationPage = this.page ?? 1;
   }
 
-  //  fetchSearchSuggestions(keyword: string): Observable<string[]> {
-  //   const suggestions: string[] = [];
-  //   const fixedSuggestions: string[] = [];
-  //   const filteredSuggestions = fixedSuggestions.filter(suggestion => suggestion.toLowerCase().includes(keyword.toLowerCase()));
-  //   suggestions.push(...filteredSuggestions);
-  //   return of(suggestions);
-  // }
+   fetchSearchSuggestions(keyword: string): Observable<string[]> {
+    const suggestions: string[] = [];
+    const fixedSuggestions: string[] = [];
+    const filteredSuggestions = fixedSuggestions.filter(suggestion => suggestion.toLowerCase().includes(keyword.toLowerCase()));
+    suggestions.push(...filteredSuggestions);
+    return of(suggestions);
+  }
 
-  // private fetchSearchResults(): Observable<any> {
-  //   const timKiem = {
-  //     maThietBi: this.maThietBi,
-  //     loaiThietBi: this.loaiThietBi,
-  //     dayChuyen: this.dayChuyen,
-  //     ngayTao: this.ngayTao,
-  //     timeUpdate: this.timeUpdate,
-  //     updateBy: '',
-  //     status: this.status,
-  //   };
+  fetchSearchResults(): Observable<any> {
+    const timKiem = {
+      maThietBi: this.maThietBi,
+      loaiThietBi: this.loaiThietBi,
+      dayChuyen: this.dayChuyen,
+      ngayTao: this.ngayTao,
+      timeUpdate: this.timeUpdate,
+      updateBy: '',
+      status: this.status,
+    };
 
-  //   const cachedResult = sessionStorage.getItem('thiet bi' + JSON.stringify(timKiem));
-  //   if (cachedResult) {
-  //     // console.log('Lấy từ cache');
-  //     return of(JSON.parse(cachedResult));
-  //   }
+    const cachedResult = sessionStorage.getItem('thiet bi' + JSON.stringify(timKiem));
+    if (cachedResult) {
+      // console.log('Lấy từ cache');
+      return of(JSON.parse(cachedResult));
+    }
 
-  //   return this.http.post<any[]>(this.resourceUrl, timKiem).pipe(
-  //     switchMap(res => {
-  //       sessionStorage.setItem('thiet bi' + JSON.stringify(timKiem), JSON.stringify(res));
-  //       return of(res);
-  //     })
-  //   );
-  // }
+    return this.http.post<any[]>(this.resourceUrl, timKiem).pipe(
+      switchMap(res => {
+        sessionStorage.setItem('thiet bi' + JSON.stringify(timKiem), JSON.stringify(res));
+        return of(res);
+      })
+    );
+  }
 
   timKiemThietBi():void {
     //xoa du lieu cu

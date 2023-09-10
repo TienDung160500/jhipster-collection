@@ -3,41 +3,13 @@
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-quan-ly-thong-so-heading" data-cy="QuanLyThongSoCreateUpdateHeading">Thêm mới quản lý thông số</h2>
 
-      <header class="header-qly-thong-so">
-        <div class="input-qly-thong-so">
-          <label class="form-label" for="field_maThietBi">
-            <p>Mã thiết bị</p>
-          </label>
-          <select class="form-control" id="field_maThietBi" data-cy="maThietBi" name="maThietBi" formControlName="maThietBi">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="maThietBiOption.id === editForm1.get('thietBi')!.value?.id ?editForm1.get('thietBi')!.value : maThietBiOption "
-              *ngFor="let maThietBiOption of thietBiQlyThongSo; trackBy: trackThietBiById">{{maThietBiOption.maThietBi}}
-            </option>
-          </select>
-        </div>
-
-        <div class="input-qly-thong-so">
-          <label class="form-label" for="field_maThietBi">
-            <p>Loại thiết bị</p>
-          </label>
-          <select class="form-control" id="field_maThietBi" data-cy="maThietBi" name="maThietBi" formControlName="maThietBi">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="maThietBiOption.id === editForm.get('thietBi')!.value?.id ?editForm.get('thietBi')!.value : maThietBiOption "
-              *ngFor="let maThietBiOption of thietBiQlyThongSo; trackBy: trackThietBiById">{{maThietBiOption.maThietBi}}
-            </option>
-          </select>
-        </div>
-      </header>
-
       <div>
         <jhi-alert-error></jhi-alert-error>
 
         <table class="table table-striped" aria-describedby="page-heading">
           <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending">
-              <th scope="col" jhiSortBy="id"><span>STT</span></th>
+              <!-- <th scope="col" jhiSortBy="id"><span>STT</span></th> -->
               <th scope="col" jhiSortBy="thongSo"><span>Mã thông số</span></th>
               <th scope="col" jhiSortBy="thongSo"><span>Thông số</span></th>
               <th scope="col" jhiSortBy="thongSo"><span>Mô tả</span></th>
@@ -47,40 +19,31 @@
           </thead>
 
           <tbody>
-            <tr *ngFor="let thongSoMay of thongSoThietBi; trackBy: trackId" data-cy="entityTable">
+            <tr data-cy="entityTable">
+              
+              <!-- <td>
+                <input type="text" class="form-control" placeholder=""/>
+              </td> -->
               <td>
-                <a [routerLink]="['/thong-so-may', thongSoMay.id, 'view']">{{ thongSoMay.id }}</a>
+                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
+                  formControlName="loaiThietBi" />
               </td>
-
               <td>
                 <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
-                  formControlName="loaiThietBi" placeholder="{{ thongSoMay.maThongSo }}"/>
-              </td>
-              <td>{{ thongSoMay.tenThongSo }}
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
                   formControlName="loaiThietBi" />
               </td>
-              <td>{{ thongSoMay.moTa }}
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
-                  formControlName="loaiThietBi" />
-              </td>
-              <td>{{ thongSoMay.status }}
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
-                  formControlName="loaiThietBi" />
-              </td>
-              <td>{{ thongSoMay.status }}
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
-                  formControlName="loaiThietBi" />
-              </td>
-              <td>{{ thongSoMay.status }}
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
-                  formControlName="loaiThietBi" />
-              </td>
-              <!-- <td>{{ thongSoMay.phanLoai }}</td> -->
               <td>
-                <div *ngIf="thongSoMay.maThongSo">
-                  <!-- <a [routerLink]="['/thiet-bi', thongSoMay.maThongSo.id, 'view']">{{ thongSoMay.maThongSo?.id }}</a> -->
-                </div>
+                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
+                  formControlName="loaiThietBi" />
+              </td>
+              <td>
+                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
+                  formControlName="loaiThietBi" />
+              </td>
+              <td>
+                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
+                  formControlName="loaiThietBi" />
+                
               </td>
               <td class="text-end">
                 <div class="btn-group">
@@ -174,23 +137,24 @@
           <label class="form-label" for="field_status">Trạng thái</label>
           <input type="text" class="form-control" name="status" id="field_status" data-cy="status" formControlName="status" />
         </div>
-      </div>
+      </div>-->
 
-      <div>
-        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
-        </button>
+    </div>
+  </form>
+  <div>
+    <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+      <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+    </button>
 
-        <button
-          type="submit"
-          id="save-entity"
-          data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
-          class="btn btn-primary"
-        >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
-        </button> -->
-      </div>
-    </form>
+    <button
+      type="submit"
+      id="save-entity"
+      data-cy="entityCreateSaveButton"
+      [disabled]="editForm.invalid || isSaving"
+      class="btn btn-primary"
+    >
+      <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+    </button> 
+    </div>
   </div>
 </div>
