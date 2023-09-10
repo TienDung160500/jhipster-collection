@@ -1,3 +1,5 @@
+import { IThietBi } from 'app/entities/thiet-bi/thiet-bi.model';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,8 +15,12 @@ import { SanXuatHangNgayDeleteDialogComponent } from '../delete/san-xuat-hang-ng
 @Component({
   selector: 'jhi-san-xuat-hang-ngay',
   templateUrl: './san-xuat-hang-ngay.component.html',
+  styleUrls: ['./san-xuat-hang-ngay.component.css']
 })
 export class SanXuatHangNgayComponent implements OnInit {
+
+  form: FormGroup = new FormGroup({});
+
   sanXuatHangNgays?: ISanXuatHangNgay[];
   isLoading = false;
   totalItems = 0;
@@ -24,12 +30,32 @@ export class SanXuatHangNgayComponent implements OnInit {
   ascending!: boolean;
   ngbPaginationPage = 1;
 
+  thietBisSharedCollection: IThietBi[] = [];
+
+  editForm = this.fb.group({
+    id: [],
+    maThietBi: [],
+    loaiThietBi: [],
+    hangTms: [],
+    thongSo: [],
+    moTa: [],
+    trangThai: [],
+    phanLoai: [],
+    thietBi: [],
+  });
+
+
   constructor(
     protected sanXuatHangNgayService: SanXuatHangNgayService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected modalService: NgbModal
-  ) {}
+    protected modalService: NgbModal,
+    protected fb: FormBuilder,
+  ) { }
+  
+  trackThietBiById(_index: number, item: IThietBi): number {
+    return item.id!;
+  }
 
   loadPage(page?: number, dontNavigate?: boolean): void {
     this.isLoading = true;

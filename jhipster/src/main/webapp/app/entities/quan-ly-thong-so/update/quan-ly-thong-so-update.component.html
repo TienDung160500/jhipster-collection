@@ -52,9 +52,9 @@
                 <a [routerLink]="['/thong-so-may', thongSoMay.id, 'view']">{{ thongSoMay.id }}</a>
               </td>
 
-              <td>{{ thongSoMay.maThongSo }}
+              <td>
                 <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
-                  formControlName="loaiThietBi" />
+                  formControlName="loaiThietBi" placeholder="{{ thongSoMay.maThongSo }}"/>
               </td>
               <td>{{ thongSoMay.tenThongSo }}
                 <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"

@@ -1,0 +1,19 @@
+* {
+  font-family: system-ui;
+}
+
+.create-thiet-bi {
+  border: none !important;
+  color: #fff;
+  background-color: #0D6EFD;
+}
+
+.btn-primary {
+  border: none !important;
+  color: #fff;
+  background-color: #0D6EFD;
+}
+
+.btn-info {
+  color: #fff;
+}

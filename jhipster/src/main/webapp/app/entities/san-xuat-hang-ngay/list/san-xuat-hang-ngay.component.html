@@ -2,6 +2,40 @@
   <h2 id="page-heading" data-cy="SanXuatHangNgayHeading">
     <span>Sản xuất hàng ngày</span>
 
+    <form [formGroup]="form" class="form-gr">
+        <header class="header-tsm">
+          <div>
+            <label class="form-label" for="field_maThietBi"><p>Mã sản phẩm</p></label>
+            <select class="form-control" id="field_maThietBi" data-cy="maThietBi" name="maThietBi" formControlName="maThietBi" >
+              <option [ngValue]="null"></option>
+              <option [ngValue]="maThietBiOption.id === editForm.get('maThietBi')!.value?.id ?editForm.get('maThietBi')!.value : maThietBiOption "
+              *ngFor="let maThietBiOption of thietBisSharedCollection; trackBy: trackThietBiById"
+              >{{maThietBiOption.maThietBi}}</option>
+            </select>
+          </div>
+          
+          <div>
+            <label class="form-label" for="field_maThietBi"><p>Tên sản phẩm</p></label>
+            <select class="form-control" id="field_maThietBi" data-cy="maThietBi" name="maThietBi" formControlName="maThietBi" >
+              <option [ngValue]="null"></option>
+              <option [ngValue]="maThietBiOption.id === editForm.get('maThietBi')!.value?.id ?editForm.get('maThietBi')!.value : maThietBiOption "
+              *ngFor="let maThietBiOption of thietBisSharedCollection; trackBy: trackThietBiById"
+              >{{maThietBiOption.maThietBi}}</option>
+            </select>
+          </div>
+    
+          <div>
+            <label class="form-label" for="field_maThietBi"><p>Mã máy</p></label>
+            <select class="form-control" id="field_maThietBi" data-cy="maThietBi" name="maThietBi" formControlName="maThietBi" >
+              <option [ngValue]="null"></option>
+              <option [ngValue]="maThietBiOption.id === editForm.get('maThietBi')!.value?.id ?editForm.get('maThietBi')!.value : maThietBiOption "
+              *ngFor="let maThietBiOption of thietBisSharedCollection; trackBy: trackThietBiById"
+              >{{maThietBiOption.dayChuyen}}</option>
+            </select>
+          </div>
+        </header>
+      </form>
+
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>

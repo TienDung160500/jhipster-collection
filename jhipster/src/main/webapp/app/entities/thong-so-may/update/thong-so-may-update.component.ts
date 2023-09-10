@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ITEMS_PER_PAGE, DESC, ASC } from 'app/config/pagination.constants';
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse, HttpHeaders } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
@@ -30,6 +30,9 @@ export class ThongSoMayUpdateComponent implements OnInit {
     //   phanLoai : '',
     // },
   ];
+
+  form: FormGroup = new FormGroup({});
+
   isSaving = false;
   isLoading = false;
   page?: number;
@@ -89,8 +92,32 @@ export class ThongSoMayUpdateComponent implements OnInit {
       this.updateForm(thongSoMay);
 
       this.loadRelationshipsOptions();
-    });
-  }
+
+      const maThietBiControl = this.form.get('maThietBi')
+      if (maThietBiControl) {
+        maThietBiControl.valueChanges.subscribe((selectedMaThietBiId: number | undefined) => {
+          const selectedMaThietBi = this.thietBisSharedCollection.find(tb => tb.id === selectedMaThietBiId);
+          if (selectedMaThietBi) {
+            this.form.patchValue({
+              loaiThietBi: selectedMaThietBi.loaiThietBi,
+              dayChuyen: selectedMaThietBi.dayChuyen
+            });
+          }
+        });
+      }
+
+        // this.form.get('maThietBi').valueChanges.subscribe((selectedMaThietBiId: number ) => {
+        //   const selectedMaThietBi = this.thietBisSharedCollection.find(tb => tb.id === selectedMaThietBiId);
+        //   if (selectedMaThietBi) {
+        //     this.form.patchValue({
+        //       loaiThietBi: selectedMaThietBi.loaiThietBi,
+        //       dayChuyen: selectedMaThietBi.dayChuyen,
+        //     });
+        //   }
+        // })
+      });
+    }
+
 
   trackId(_index: number, item: IThongSoMay): number {
     return item.id!;

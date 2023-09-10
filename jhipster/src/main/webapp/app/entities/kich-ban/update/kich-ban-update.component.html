@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-kich-ban-heading" data-cy="KichBanCreateUpdateHeading">Thêm mới</h2>
+      <h2 id="jhi-kich-ban-heading" data-cy="KichBanCreateUpdateHeading">Thêm mới kịch bản</h2>
       <header class="header-tsm">
         <div>
           <label class="form-label" for="field_maThietBi">
@@ -31,7 +31,20 @@
         
       <div>
         <label for="">
-          <p>Dây chuyền</p>
+          <p>Mã sản phẩm</p>
+        </label>
+        <select class="form-control" id="field_maThietBi" data-cy="maThietBi" name="maThietBi" formControlName="maThietBi">
+          <option [ngValue]="null"></option>
+          <option
+            [ngValue]="maThietBiOption.id === editForm.get('thietBi')!.value?.id ?editForm.get('thietBi')!.value : maThietBiOption "
+            *ngFor="let maThietBiOption of thietBisSharedCollection; trackBy: trackThietBiById">
+            {{maThietBiOption.dayChuyen}}</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="">
+          <p>Version sản phẩm</p>
         </label>
         <select class="form-control" id="field_maThietBi" data-cy="maThietBi" name="maThietBi" formControlName="maThietBi">
           <option [ngValue]="null"></option>
@@ -50,16 +63,44 @@
         <table class="table table-striped" aria-describedby="page-heading">
           <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending">
-              <th scope="col" jhiSortBy="maKichBan"><span>Mã kịch bản</span></th>
-              <th scope="col" jhiSortBy="thongSo"><span>Mã sản phẩm</span></th>
-              <th scope="col" jhiSortBy="trangThai"><span>Version sản phẩm</span></th>
-              <th scope="col" jhiSortBy="phanLoai"><span>UpdateBy</span></th>
-              <th scope="col" jhiSortBy="phanLoai"><span>Trạng thái</span></th>
-
-              <!-- <th scope="col" jhiSortBy="thietBi.id"><span>Thiet Bi</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="maKichBan"><span>Thông số</span></th>
+              <th scope="col" jhiSortBy="thongSo"><span>Min</span></th>
+              <th scope="col" jhiSortBy="trangThai"><span>Max</span></th>
+              <th scope="col" jhiSortBy="phanLoai"><span>Trung bình</span></th>
+              <th scope="col" jhiSortBy="phanLoai"><span>Đơn vị</span></th>
+              <th scope="col" jhiSortBy="phanLoai"><span>Phân loại</span></th>
               <th scope="col"></th>
             </tr>
           </thead>
+
+          <tbody>
+            <tr  data-cy="entityTable">
+              <td>
+                <input type="text" class="form-control-table" name="thongSo" id="field_thongSo" data-cy="thongSo"
+                  formControlName="thongSo" />
+              </td>
+              <td>
+                <input type="text" class="form-control-table" name="MinValue" id="field_MinValue" data-cy="MinValue"
+                  formControlName="MinValue" />
+              </td>
+              <td>
+                <input type="text" class="form-control-table" name="MaxValue" id="field_MaxValue" data-cy="MaxValue"
+                  formControlName="MaxValue" />
+              </td>
+              <td>
+                <input type="text" class="form-control-table" name="trungBinh" id="field_trungBinh" data-cy="trungBinh"
+                  formControlName="trungBinh" />
+              </td>
+              <td>
+                <input type="text" class="form-control-table" name="donVi" id="field_donVi" data-cy="donVi"
+                  formControlName="donVi" />
+              </td>
+              <td>
+                <input type="text" class="form-control-table" name="phanLoai" id="field_phanLoai" data-cy="phanLoai"
+                  formControlName="phanLoai" />
+              </td>
+            </tr>
+          </tbody>
         </table>
 
       <div>

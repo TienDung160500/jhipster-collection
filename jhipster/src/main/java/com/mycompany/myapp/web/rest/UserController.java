@@ -7,6 +7,7 @@ import com.mycompany.myapp.web.rest.request.*;
 import com.mycompany.myapp.web.rest.response.*;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,8 @@ import java.util.List;
 // * Ngăn cách
 // ☺ đã Test với front-end
 @RestController
+@RequestMapping("/api")
+@Transactional
 public class UserController {
     @Autowired
     private UserServices userServices;
@@ -88,7 +91,7 @@ public class UserController {
         return responseList;
     }
     //☺ Tìm kiếm
-    @PostMapping("/thiet-bi/tim-kiem")
+    @PostMapping("/thiet-bis/tim-kiem")
     public List<ThietBiResponse> getThietBiByStatus(@RequestBody ThietBiRequest request) {
         List<ThietBiResponse> responseList = this.userServices.timKiemThietBi(request);
         return responseList;

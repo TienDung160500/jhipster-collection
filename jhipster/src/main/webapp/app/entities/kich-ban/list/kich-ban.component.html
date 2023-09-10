@@ -1,6 +1,6 @@
 <div>
   <h2 id="page-heading" data-cy="KichBanHeading">
-    <span>Kịch bản</span>
+    <span>Kịch bản sản xuất</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
@@ -34,16 +34,14 @@
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending">
           <th scope="col" jhiSortBy="id"><span>STT</span></th>
           <th scope="col" jhiSortBy="maKichBan"><span>Mã kịch bản</span></th>
-          <th scope="col" jhiSortBy="maThietBi"><span>Mã thiết bị</span></th>
-          <th scope="col" jhiSortBy="loaiThietBi"><span>Loại thiết bị</span></th>
-          <th scope="col" jhiSortBy="dayChuyen"><span>Dây chuyền</span></th>
           <th scope="col" jhiSortBy="maSanPham"><span>Mã sản phẩm</span></th>
           <th scope="col" jhiSortBy="versionSanPham"><span>Version sản phẩm</span></th>
+          <th scope="col" jhiSortBy="versionSanPham"><span>Tên sản phẩm</span></th>
           <th scope="col" jhiSortBy="ngayTao"><span>Ngày tạo</span></th>
           <th scope="col" jhiSortBy="timeUpdate"><span>Time Update</span></th>
           <th scope="col" jhiSortBy="updateBy"><span>Update By</span></th>
           <th scope="col" jhiSortBy="trangThai"><span>Trạng thái</span></th>
-          <th scope="col"></th>
+          <th scope="col">Options</th>
         </tr>
       </thead>
       <tbody>
@@ -52,9 +50,7 @@
             <a [routerLink]="['/kich-ban', kichBan.id, 'view']">{{ kichBan.id }}</a>
           </td>
           <td>{{ kichBan.maKichBan }}</td>
-          <td>{{ kichBan.maThietBi }}</td>
-          <td>{{ kichBan.loaiThietBi }}</td>
-          <td>{{ kichBan.dayChuyen }}</td>
+          <td>{{ kichBan.maKichBan }}</td>
           <td>{{ kichBan.maSanPham }}</td>
           <td>{{ kichBan.versionSanPham }}</td>
           <td>{{ kichBan.ngayTao | formatMediumDatetime }}</td>

@@ -13,6 +13,7 @@ import { KichBanDeleteDialogComponent } from '../delete/kich-ban-delete-dialog.c
 @Component({
   selector: 'jhi-kich-ban',
   templateUrl: './kich-ban.component.html',
+  styleUrls: ['./kich-ban.component.css']
 })
 export class KichBanComponent implements OnInit {
   kichBans?: IKichBan[];

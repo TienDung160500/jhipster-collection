@@ -45,7 +45,7 @@
           </li>
         </ul>
 
-        <div class="user-info">
+        <!-- <div class="user-info">
           <a class="nav-link" routerLink="account/settings" (click)="collapseNavbar()" data-cy="settings">
             <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
             <span>Cài đặt</span>
@@ -58,7 +58,26 @@
             <fa-icon icon="sign-out-alt" [fixedWidth]="true"></fa-icon>
             <span>Đăng xuất</span>
           </a>
-        </div>
+        </div> -->
+
+        <li
+          ngbDropdown
+          class="nav-item dropdown pointer"
+          display="dynamic"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu" data-cy="accountMenu">
+            <span *ngIf="!account?.imageUrl">
+              <fa-icon icon="user"></fa-icon>
+              <span>Account</span>
+            </span>
+            <span *ngIf="account?.imageUrl">
+              <img [src]="account!.imageUrl" class="profile-image rounded-circle" alt="Avatar" />
+            </span>
+          </a>
+
+          
 
       </nav>
     </div>
@@ -68,7 +87,7 @@
       <span class="logo-img"></span>
       <span class="navbar-title">Rạng Đông</span>
     </a> -->
-    <!-- <a
+    <a
       class="navbar-toggler d-lg-none"
       href="javascript:void(0);"
       data-toggle="collapse"
@@ -79,19 +98,19 @@
       (click)="toggleNavbar()"
     >
       <fa-icon icon="bars"></fa-icon>
-    </a> -->
-    <!-- <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="account !== null">
-      <ul class="navbar-nav ms-auto"> -->
-        <!-- <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    </a>
+    <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="account !== null">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
             <span>
               <fa-icon icon="home"></fa-icon>
               <span>Home</span>
             </span>
           </a>
-        </li> -->
+        </li>
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-        <!-- <li
+        <li
           *ngSwitchCase="true"
           ngbDropdown
           class="nav-item dropdown pointer"
@@ -99,14 +118,14 @@
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
         >
-          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
+          <!-- <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
             <span>
               <fa-icon icon="th-list"></fa-icon>
               <span>Entities</span>
             </span>
           </a>
-          <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
-            <li>
+          <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu"> -->
+            <!-- <li>
               <a
                 class="dropdown-item"
                 routerLink="thiet-bi"
@@ -270,7 +289,7 @@
             </li> -->
             <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
           <!-- </ul>
-        </li>
+        </li> -->
         <li
           ngbDropdown
           class="nav-item dropdown pointer"
@@ -325,8 +344,8 @@
               </a>
             </li>
           </ul>
-        </li> -->
-      <!-- </ul> -->
-    <!-- </div> -->
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>

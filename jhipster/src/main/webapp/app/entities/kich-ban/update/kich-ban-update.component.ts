@@ -15,6 +15,7 @@ import { KichBanService } from '../service/kich-ban.service';
 @Component({
   selector: 'jhi-kich-ban-update',
   templateUrl: './kich-ban-update.component.html',
+  styleUrls: ['./kich-ban-update.component.css']
 })
 export class KichBanUpdateComponent implements OnInit {
   isSaving = false;

@@ -1,3 +1,5 @@
+import { IChiTietKichBan } from 'app/entities/chi-tiet-kich-ban/chi-tiet-kich-ban.model';
+import { IThietBi } from 'app/entities/thiet-bi/thiet-bi.model';
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
@@ -17,6 +19,12 @@ import { SanXuatHangNgayService } from '../service/san-xuat-hang-ngay.service';
 })
 export class SanXuatHangNgayUpdateComponent implements OnInit {
   isSaving = false;
+  predicate!: string;
+  ascending!: boolean;
+
+  thietBisSharedCollection: IThietBi[] = [];
+  sanXuatHangNgay: ISanXuatHangNgay[] = [];
+  chiTietKichBan: IChiTietKichBan[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -29,6 +37,19 @@ export class SanXuatHangNgayUpdateComponent implements OnInit {
     ngayTao: [],
     timeUpdate: [],
     trangThai: [],
+  });
+
+  editFormSXHN = this.fb.group({
+    id: [],
+    maKichBan: [],
+    hangMkb: [],
+    thongSo: [],
+    minValue: [],
+    maxValue: [],
+    trungbinh: [],
+    donVi: [],
+    phanLoai: [],
+    kichBan: [],
   });
 
   constructor(
@@ -49,8 +70,16 @@ export class SanXuatHangNgayUpdateComponent implements OnInit {
     });
   }
 
+  trackId(_index: number, item: IChiTietKichBan): number {
+    return item.id!;
+  }
+
   previousState(): void {
     window.history.back();
+  }
+
+  trackThietBiById(_index: number, item: IThietBi): number {
+    return item.id!;
   }
 
   save(): void {

@@ -1,110 +1,86 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-san-xuat-hang-ngay-heading" data-cy="SanXuatHangNgayCreateUpdateHeading">Create or edit a San Xuat Hang Ngay</h2>
+    <form name="editFormSXHN" role="form" novalidate (ngSubmit)="save()" [formGroup]="editFormSXHN">
+      <h2 id="jhi-san-xuat-hang-ngay-heading" data-cy="SanXuatHangNgayCreateUpdateHeading">Thêm mới sản xuất hàng ngày</h2>
+
+      <header>
+        <div>
+          <label class="form-label" for="field_maSanPham">
+            <p>Mã sản phẩm</p>
+          </label>
+          <select class="form-control" id="field_maSanPham" data-cy="maSanPham" name="maSanPham" formControlName="maSanPham">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="maThietBiOption.id === editFormSXHN.get('thietBi')!.value?.id ?editFormSXHN.get('thietBi')!.value : maThietBiOption "
+              *ngFor="let maThietBiOption of thietBisSharedCollection; trackBy: trackThietBiById">
+              {{maThietBiOption.maThietBi}}</option>
+          </select>
+        </div>
+      
+        <div>
+          <label for="">
+            <p>Tên sản phẩm</p>
+          </label>
+          <select class="form-control" id="field_maThietBi" data-cy="maThietBi" name="maThietBi" formControlName="maThietBi">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="maThietBiOption.id === editFormSXHN.get('thietBi')!.value?.id ?editFormSXHN.get('thietBi')!.value : maThietBiOption "
+              *ngFor="let maThietBiOption of thietBisSharedCollection; trackBy: trackThietBiById">
+              {{maThietBiOption.loaiThietBi}}</option>
+          </select>
+        </div>
+      </header>
 
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-label" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div>
+        <table class="table table-striped">
+           <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending">
+              <th scope="col" jhiSortBy="maKichBan"><span>Thông số</span></th>
+              <th scope="col" jhiSortBy="thongSo"><span>Min</span></th>
+              <th scope="col" jhiSortBy="trangThai"><span>Max</span></th>
+              <th scope="col" jhiSortBy="phanLoai"><span>Trung bình</span></th>
+              <th scope="col" jhiSortBy="phanLoai"><span>Đơn vị</span></th>
+              <th scope="col" jhiSortBy="phanLoai"><span>Phân loại</span></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
 
-        <div class="row mb-3">
-          <label class="form-label" for="field_maKichBan">Ma Kich Ban</label>
-          <input type="text" class="form-control" name="maKichBan" id="field_maKichBan" data-cy="maKichBan" formControlName="maKichBan" />
-        </div>
+          <tbody>
+            <tr *ngFor="let chiTietKichBan of chiTietKichBan; trackBy: trackId" data-cy="entityTable">
+              <td>
+                <!-- <a [routerLink]="['/thong-so-may', thongSoMay.id, 'view']">{{ thongSoMay.id }}</a> -->
+              </td>
 
-        <div class="row mb-3">
-          <label class="form-label" for="field_maThietBi">Ma Thiet Bi</label>
-          <input type="text" class="form-control" name="maThietBi" id="field_maThietBi" data-cy="maThietBi" formControlName="maThietBi" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_loaiThietBi">Loai Thiet Bi</label>
-          <input
-            type="text"
-            class="form-control"
-            name="loaiThietBi"
-            id="field_loaiThietBi"
-            data-cy="loaiThietBi"
-            formControlName="loaiThietBi"
-          />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_dayChuyen">Day Chuyen</label>
-          <input type="text" class="form-control" name="dayChuyen" id="field_dayChuyen" data-cy="dayChuyen" formControlName="dayChuyen" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_maSanPham">Ma San Pham</label>
-          <input type="text" class="form-control" name="maSanPham" id="field_maSanPham" data-cy="maSanPham" formControlName="maSanPham" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_versionSanPham">Version San Pham</label>
-          <input
-            type="text"
-            class="form-control"
-            name="versionSanPham"
-            id="field_versionSanPham"
-            data-cy="versionSanPham"
-            formControlName="versionSanPham"
-          />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_ngayTao">Ngay Tao</label>
-          <div class="d-flex">
-            <input
-              id="field_ngayTao"
-              data-cy="ngayTao"
-              type="datetime-local"
-              class="form-control"
-              name="ngayTao"
-              formControlName="ngayTao"
-              placeholder="YYYY-MM-DD HH:mm"
-            />
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_timeUpdate">Time Update</label>
-          <div class="d-flex">
-            <input
-              id="field_timeUpdate"
-              data-cy="timeUpdate"
-              type="datetime-local"
-              class="form-control"
-              name="timeUpdate"
-              formControlName="timeUpdate"
-              placeholder="YYYY-MM-DD HH:mm"
-            />
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_trangThai">Trang Thai</label>
-          <input type="text" class="form-control" name="trangThai" id="field_trangThai" data-cy="trangThai" formControlName="trangThai" />
-        </div>
-      </div>
-
-      <div>
-        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
-        </button>
-
-        <button
-          type="submit"
-          id="save-entity"
-          data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
-          class="btn btn-primary"
-        >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
-        </button>
+              <td>
+                <input type="text" class="form-control" name="loaiThietBi" data-cy="thongSo"
+                  formControlName="loaiThietBi" placeholder="{{ chiTietKichBan.thongSo }}"/>
+              </td>
+              <td>{{ chiTietKichBan.minValue }}
+                <input type="text" class="form-control" name="loaiThietBi" data-cy="minValue"
+                  formControlName="loaiThietBi" />
+              </td>
+              <td>{{ chiTietKichBan.maxValue }}
+                <input type="text" class="form-control" name="loaiThietBi" data-cy="maxValue"
+                  formControlName="loaiThietBi" />
+              </td>
+              <td>{{ chiTietKichBan.trungbinh }}
+                <input type="text" class="form-control" name="loaiThietBi" data-cy="trungbinh"
+                  formControlName="loaiThietBi" />
+              </td>
+              <td>{{ chiTietKichBan.donVi }}
+                <input type="text" class="form-control" name="loaiThietBi" data-cy="donVi"
+                  formControlName="loaiThietBi" />
+              </td>
+              <td>{{ chiTietKichBan.phanLoai }}
+                <input type="text" class="form-control" name="loaiThietBi" data-cy="phanLoai"
+                  formControlName="loaiThietBi" />
+              </td>
+              <!-- <td>{{ chiTietKichBan.phanLoai }}</td> -->
+            </tr>
+          </tbody>
+        </table>
       </div>
     </form>
   </div>

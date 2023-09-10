@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'app/shared/shared.module';
 import { ThongSoMayComponent } from './list/thong-so-may.component';
@@ -7,7 +8,7 @@ import { ThongSoMayDeleteDialogComponent } from './delete/thong-so-may-delete-di
 import { ThongSoMayRoutingModule } from './route/thong-so-may-routing.module';
 
 @NgModule({
-  imports: [SharedModule, ThongSoMayRoutingModule],
+  imports: [SharedModule, ThongSoMayRoutingModule, ReactiveFormsModule],
   declarations: [ThongSoMayComponent, ThongSoMayDetailComponent, ThongSoMayUpdateComponent, ThongSoMayDeleteDialogComponent],
   entryComponents: [ThongSoMayDeleteDialogComponent],
 })

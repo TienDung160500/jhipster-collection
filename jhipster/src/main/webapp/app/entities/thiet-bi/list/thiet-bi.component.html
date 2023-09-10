@@ -35,7 +35,7 @@
           <th scope="col" jhiSortBy="id"><span>STT</span></th>
           <th scope="col" jhiSortBy="maThietBi">
             <span>Mã thiết bị</span>
-            <input #searchInput type="text" [(ngModel)]="searchKeyword" (input)="onSearchInput()" (keyup.enter)="onSearchEnter()" placeholder="search" />
+            <input #searchInput type="text" [(ngModel)]="searchKeyword" (input)="maThietBi" (keyup.enter)="timKiemThietBi()" placeholder="search" />
 
             <ul>
               <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
@@ -49,10 +49,24 @@
           <th scope="col" jhiSortBy="loaiThietBi">
             <span>Loại thiết bị</span>
             <input type="text" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.maThietBi }}</li>
+            </ul>
           </th>
           <th scope="col" jhiSortBy="dayChuyen">
             <span>Dây chuyền</span>
             <input type="text" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.maThietBi }}</li>
+            </ul>
           </th>
           <th scope="col" jhiSortBy="ngayTao">
             <span>Ngày tạo</span>
@@ -65,18 +79,33 @@
           <th scope="col" jhiSortBy="updateBy">
             <span>Update By</span>
             <input type="text" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.maThietBi }}</li>
+            </ul>
           </th>
           <th scope="col" jhiSortBy="status">
             <span>Trạng thái</span>
             <input type="text" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.maThietBi }}</li>
+            </ul>
           </th>
           <th scope="col">Options</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let thietBi of thietBis; trackBy: trackId" data-cy="entityTable">
+        <tr *ngFor="let thietBi of thietBis; let i = index; trackBy: trackId" data-cy="entityTable">
           <td>
-            <a [routerLink]="['/thiet-bi', thietBi.id, 'view']">{{ thietBi.id }}</a>
+            {{i+1}}
+            <!-- <a [routerLink]="['/thiet-bi', thietBi.id, 'view']">{{ thietBi.id }}</a> -->
           </td>
           <td>{{ thietBi.maThietBi }}</td>
           <td>{{ thietBi.loaiThietBi }}</td>
@@ -94,7 +123,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">View</span>
+                <!-- <span class="d-none d-md-inline">Chi tiết</span> -->
               </button>
 
               <button
@@ -104,12 +133,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline">Edit</span>
+                <!-- <span class="d-none d-md-inline">Chỉnh sửa</span> -->
               </button>
 
               <button type="submit" (click)="delete(thietBi)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline">Delete</span>
+                <fa-icon icon="times" class="delete-icon"></fa-icon>
+                <!-- <span class="d-none d-md-inline">Xóa</span> -->
               </button>
             </div>
           </td>
