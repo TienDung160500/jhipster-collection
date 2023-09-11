@@ -10,7 +10,7 @@ import java.util.List;
 
 
 public class SanXuatHangNgayResponse {
-    private Long idSanXuatHangNgay;
+    private Long id;
 
     private String maKichBan;
 
@@ -34,8 +34,8 @@ public class SanXuatHangNgayResponse {
     public SanXuatHangNgayResponse() {
     }
 
-    public SanXuatHangNgayResponse(Long idSanXuatHangNgay, String maKichBan, String maThietBi, String loaiThietBi, String dayChuyen, String maSanPham, String versionSanPham, ZonedDateTime ngayTao, ZonedDateTime timeUpdate, String trangThai, List<ChiTietSanXuat> chiTietSanXuat) {
-        this.idSanXuatHangNgay = idSanXuatHangNgay;
+    public SanXuatHangNgayResponse(Long id, String maKichBan, String maThietBi, String loaiThietBi, String dayChuyen, String maSanPham, String versionSanPham, ZonedDateTime ngayTao, ZonedDateTime timeUpdate, String trangThai, List<ChiTietSanXuat> chiTietSanXuat) {
+        this.id = id;
         this.maKichBan = maKichBan;
         this.maThietBi = maThietBi;
         this.loaiThietBi = loaiThietBi;
@@ -48,12 +48,12 @@ public class SanXuatHangNgayResponse {
         this.chiTietSanXuat = chiTietSanXuat;
     }
 
-    public Long getIdSanXuatHangNgay() {
-        return idSanXuatHangNgay;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdSanXuatHangNgay(Long idSanXuatHangNgay) {
-        this.idSanXuatHangNgay = idSanXuatHangNgay;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getMaKichBan() {

@@ -66,8 +66,11 @@ export class KichBanUpdateComponent implements OnInit {
 
   onMaKichBanChange():void {
     const selectedMaKichBan = this.form.get('maKichBan')?.value;
+    console.log(selectedMaKichBan);
 
     const selectedThietBi = this.kichBansSharedCollection.find(item => item.id === selectedMaKichBan);
+    console.log(selectedThietBi);
+
 
     if (selectedThietBi) {
       // Cập nhật các giá trị khác trong form

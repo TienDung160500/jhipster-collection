@@ -63,6 +63,7 @@ public class UserServices {
     //☺ Hàm set giá trị cho từng thuộc tính
     private static QuanLyThongSoResponse getQuanLyThongSoResponse(QuanLyThongSo entity) {
         QuanLyThongSoResponse response = new QuanLyThongSoResponse();
+        response.setId(entity.getId());
         response.setMaThongSo(entity.getMaThongSo());
         response.setTenThongSo(entity.getTenThongSo());
         response.setMoTa(entity.getMoTa());
@@ -156,7 +157,7 @@ public class UserServices {
     //☺ Hàm set giá trị cho từng thuộc tính
     private static ThietBiResponse getThietBiResponse(ThietBi entity) {
         ThietBiResponse response = new ThietBiResponse();
-        response.setIdThietBi(entity.getId());
+        response.setId(entity.getId());
         response.setMaThietBi(entity.getMaThietBi());
         response.setLoaiThietBi(entity.getLoaiThietBi());
         response.setDayChuyen(entity.getDayChuyen());
@@ -254,7 +255,7 @@ public class UserServices {
         List<ThongSoMayResponse> responseList = new ArrayList<>();
         for (ThongSoMay entity:entities){
             ThongSoMayResponse response = new ThongSoMayResponse();
-            response.setIdThongSoThietBi(entity.getId());
+            response.setId(entity.getId());
             response.setThongSo(entity.getThongSo());
             response.setMo_ta(entity.getMoTa());
             response.setPhanLoai(entity.getPhanLoai());
@@ -312,7 +313,7 @@ public class UserServices {
     //☺ Hàm set giá trị cho từng thuộc tính
     private static KichBanResponse getKichBanResponse(KichBan entity) {
         KichBanResponse response = new KichBanResponse();
-        response.setIdKichBan(entity.getId());
+        response.setId(entity.getId());
         response.setMaKichBan(entity.getMaKichBan());
         response.setMaThietBi(entity.getMaThietBi());
         response.setLoaiThietBi(entity.getLoaiThietBi());
@@ -465,7 +466,7 @@ public String postChiTietKichBan(List<ChiTietKichBanRequest> requests){
     // ☺ Ham set gia tri cho tung thuoc tinh
     public SanXuatHangNgayResponse getSanXuatHangNgayResponse(SanXuatHangNgay entity) {
         SanXuatHangNgayResponse response = new SanXuatHangNgayResponse();
-        response.setIdSanXuatHangNgay(entity.getId());
+        response.setId(entity.getId());
         response.setMaKichBan(entity.getMaKichBan());
         response.setMaThietBi(entity.getMaThietBi());
         response.setLoaiThietBi(entity.getLoaiThietBi());

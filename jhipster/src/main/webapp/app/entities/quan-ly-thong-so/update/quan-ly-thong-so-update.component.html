@@ -9,9 +9,9 @@
         <table class="table table-striped" aria-describedby="page-heading">
           <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending">
-              <th scope="col" jhiSortBy="thongSo"><span>Mã thông số</span></th>
+              <th scope="col" jhiSortBy="maThongSo"><span>Mã thông số</span></th>
               <th scope="col" jhiSortBy="thongSo"><span>Thông số</span></th>
-              <th scope="col" jhiSortBy="thongSo"><span>Mô tả</span></th>
+              <th scope="col" jhiSortBy="moTa"><span>Mô tả</span></th>
               <th scope="col" jhiSortBy="trangThai"><span>Trạng thái</span></th>
               <th scope="col">Options</th>
             </tr>
@@ -24,24 +24,27 @@
                 <input type="text" class="form-control" placeholder=""/>
               </td> -->
               <td>
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
+                <input type="text" class="form-control" name="maThongSo" id="field_loaiThietBi" 
                   formControlName="loaiThietBi" />
               </td>
               <td>
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
+                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" 
                   formControlName="loaiThietBi" />
               </td>
               <td>
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
+                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" 
                   formControlName="loaiThietBi" />
               </td>
               <td>
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
+                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" 
                   formControlName="loaiThietBi" />
               </td>
               <td>
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" data-cy="loaiThietBi"
-                  formControlName="loaiThietBi" />
+                <select class="form-control" id="maKichBan" data-cy="maKichBan" name="maKichBan" formControlName="maKichBan" [(ngModel)]="selectedStatus" (change)="onMaKichBanChange()">
+                  <option [ngValue]="null">-- Chọn trạng thái --</option>
+                  <option value="active">Active</option>
+                  <option value="deactive">Deactive</option>
+                </select>
                 
               </td>
               <td class="text-end">

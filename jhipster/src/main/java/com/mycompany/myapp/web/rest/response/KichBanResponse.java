@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public class KichBanResponse {
-    private Long idKichBan;
+    private Long id;
     private String maKichBan;
 
     private String maThietBi;
@@ -34,12 +34,12 @@ public class KichBanResponse {
 
 
 
-    public Long getIdKichBan() {
-        return idKichBan;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdKichBan(Long idKichBan) {
-        this.idKichBan = idKichBan;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getMaKichBan() {
@@ -114,8 +114,8 @@ public class KichBanResponse {
         this.updateBy = updateBy;
     }
 
-    public KichBanResponse(Long idKichBan, String maKichBan, String maThietBi, String loaiThietBi, String dayChuyen, String maSanPham, String versionSanPham, ZonedDateTime ngayTao, ZonedDateTime timeUpdate, String updateBy, String trangThai, List<ChiTietKichBan> kichBanList) {
-        this.idKichBan = idKichBan;
+    public KichBanResponse(Long id, String maKichBan, String maThietBi, String loaiThietBi, String dayChuyen, String maSanPham, String versionSanPham, ZonedDateTime ngayTao, ZonedDateTime timeUpdate, String updateBy, String trangThai, List<ChiTietKichBan> kichBanList) {
+        this.id = id;
         this.maKichBan = maKichBan;
         this.maThietBi = maThietBi;
         this.loaiThietBi = loaiThietBi;

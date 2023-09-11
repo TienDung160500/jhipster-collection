@@ -3,7 +3,7 @@ package com.mycompany.myapp.web.rest.response;
 
 
 public class ChiTietSanXuatResponse {
-    private Integer idChiTietSanXuat;
+    private Integer id;
 
     private Integer idSanXuatHangNgay;
 
@@ -24,8 +24,8 @@ public class ChiTietSanXuatResponse {
     public ChiTietSanXuatResponse() {
     }
 
-    public ChiTietSanXuatResponse(Integer idChiTietSanXuat, Integer idSanXuatHangNgay, String maKichBan, Integer rows, String thongSo, Float minValue, Float maxValue, Float trungBinh, String donVi) {
-        this.idChiTietSanXuat = idChiTietSanXuat;
+    public ChiTietSanXuatResponse(Integer id, Integer idSanXuatHangNgay, String maKichBan, Integer rows, String thongSo, Float minValue, Float maxValue, Float trungBinh, String donVi) {
+        this.id = id;
         this.idSanXuatHangNgay = idSanXuatHangNgay;
         this.maKichBan = maKichBan;
         this.rows = rows;
@@ -36,12 +36,12 @@ public class ChiTietSanXuatResponse {
         this.donVi = donVi;
     }
 
-    public Integer getIdChiTietSanXuat() {
-        return idChiTietSanXuat;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdChiTietSanXuat(Integer idChiTietSanXuat) {
-        this.idChiTietSanXuat = idChiTietSanXuat;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getIdSanXuatHangNgay() {

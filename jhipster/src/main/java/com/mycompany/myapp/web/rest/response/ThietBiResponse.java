@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public class ThietBiResponse {
-    private Long idThietBi;
+    private Long id;
     private String maThietBi;
     private String loaiThietBi;
     private String dayChuyen;
@@ -22,8 +22,8 @@ public class ThietBiResponse {
     public ThietBiResponse() {
     }
 
-    public ThietBiResponse(Long idThietBi, String maThietBi, String loaiThietBi, String dayChuyen, ZonedDateTime ngayTao, ZonedDateTime timeUpdate, String updateBy, String status, List<ThongSoMay> thongSoMayResponseList) {
-        this.idThietBi = idThietBi;
+    public ThietBiResponse(Long id, String maThietBi, String loaiThietBi, String dayChuyen, ZonedDateTime ngayTao, ZonedDateTime timeUpdate, String updateBy, String status, List<ThongSoMay> thongSoMayResponseList) {
+        this.id = id;
         this.maThietBi = maThietBi;
         this.loaiThietBi = loaiThietBi;
         this.dayChuyen = dayChuyen;
@@ -34,12 +34,12 @@ public class ThietBiResponse {
         this.thongSoMayResponseList = thongSoMayResponseList;
     }
 
-    public Long getIdThietBi() {
-        return idThietBi;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdThietBi(Long idThietBi) {
-        this.idThietBi = idThietBi;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getMaThietBi() {

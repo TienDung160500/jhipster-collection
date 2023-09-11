@@ -2,7 +2,7 @@ package com.mycompany.myapp.web.rest.response;
 
 
 public class ThongSoMayResponse {
-    private Long idThongSoThietBi;
+    private Long id;
     private Long idThietBi;
     private Long idThongSo;
     private String maThietBi;
@@ -16,8 +16,8 @@ public class ThongSoMayResponse {
     public ThongSoMayResponse() {
     }
 
-    public ThongSoMayResponse(Long idThongSoThietBi, Long idThietBi, Long idThongSo, String maThietBi, String loaiThietBi, Long rows, String thongSo, String mo_ta, String status, String phanLoai) {
-        this.idThongSoThietBi = idThongSoThietBi;
+    public ThongSoMayResponse(Long id, Long idThietBi, Long idThongSo, String maThietBi, String loaiThietBi, Long rows, String thongSo, String mo_ta, String status, String phanLoai) {
+        this.id = id;
         this.idThietBi = idThietBi;
         this.idThongSo = idThongSo;
         this.maThietBi = maThietBi;
@@ -29,12 +29,12 @@ public class ThongSoMayResponse {
         this.phanLoai = phanLoai;
     }
 
-    public Long getIdThongSoThietBi() {
-        return idThongSoThietBi;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdThongSoThietBi(Long idThongSoThietBi) {
-        this.idThongSoThietBi = idThongSoThietBi;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getIdThietBi() {

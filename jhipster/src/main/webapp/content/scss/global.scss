@@ -69,7 +69,12 @@ Generic styles
 
 /* other generic styles */
 
+
+
 .jh-card {
+  position: absolute;
+  right: 0;
+  width: 87%;
   margin-left: 14%;
   padding: 1.5%;
   margin-top: 20px;

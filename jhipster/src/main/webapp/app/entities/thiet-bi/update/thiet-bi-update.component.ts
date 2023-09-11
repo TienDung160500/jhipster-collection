@@ -1,5 +1,6 @@
+import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
+import { HttpResponse, HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -16,14 +17,16 @@ import { ThietBiService } from '../service/thiet-bi.service';
   templateUrl: './thiet-bi-update.component.html',
 })
 export class ThietBiUpdateComponent implements OnInit {
-  isSaving = false;
+  resourceUrl = this.applicationConfigService.getEndpointFor('api/thiet-bi/cap-nhat');
   predicate!: string;
   ascending!: boolean;
+  isSaving = false;
 
   i = 0;
   editId: number | null = null;
 
   @Input() id = '';
+  @Input() idThongSo = '';
   @Input() status = '';
   @Input() maThongSo = '';
   @Input() moTa = '';
@@ -53,7 +56,13 @@ export class ThietBiUpdateComponent implements OnInit {
     status: [],
   });
 
-  constructor(protected thietBiService: ThietBiService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {
+  constructor(
+    protected thietBiService: ThietBiService,
+    protected activatedRoute: ActivatedRoute,
+    protected fb: FormBuilder,
+    protected http: HttpClient,
+    protected applicationConfigService: ApplicationConfigService
+  ) {
     this.form = this.fb.group({
       maThietBi: ['', Validators.required],
       loaiThietBi: ['', Validators.required],
@@ -153,29 +162,50 @@ export class ThietBiUpdateComponent implements OnInit {
   }
 
   stopEdit(): void {
+    if (this.editId !== null) {
+      this.http.post<any>(this.resourceUrl, this.listOfThietBi[this.editId + 1]).subscribe(
+        response => {
+          console.log('update thanh cong', response);
+        },
+        error => {
+          console.error('update fail', error);
+        }
+      );
+      this.editId = null;
+    }
     this.editId = null;
   }
 
-  // count() {
-
-  // }
-
   // khai bao lai them bien va them vao body
   // click vao o du lieu se reload (co du lieu)
-  addRow(): void {
-    this.listOfThietBi = [
-      ...this.listOfThietBi,
-      {
-        id: '',
-        idThongSo:'',
-        maThongSo: '',
-        tenThongSo: '',
-        moTa: '',
-        status: '',
-      },
-    ];
-    console.log('add row', this.listOfThietBi);
+  // addRow(): void {
+  //   this.listOfThietBi = [
+  //     ...this.listOfThietBi,
+  //     {
+  //       id: '',
+  //       idThongSo: '',
+  //       maThongSo: '',
+  //       tenThongSo: '',
+  //       moTa: '',
+  //       status: '',
+  //     },
+  //   ];
+  //   console.log('add row', this.listOfThietBi);
+  //   this.i++;
+  // }
 
+  addRow(): void {
+    const newRow = {
+      id: '',
+      idThongSo: '',
+      maThongSo: 'maThongSo',
+      tenThongSo: 'tenThongSo',
+      moTa: 'moTa',
+      status: 'status',
+    };
+
+    this.listOfThietBi = [...this.listOfThietBi, newRow];
+    console.log('add row', this.listOfThietBi);
     this.i++;
   }
 

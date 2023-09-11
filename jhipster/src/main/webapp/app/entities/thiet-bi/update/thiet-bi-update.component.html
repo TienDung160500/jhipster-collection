@@ -28,10 +28,10 @@
                 <input
                   type="text"
                   class="form-control"
-                  name="loaiThietBi"
-                  id="field_loaiThietBi"
-                  data-cy="loaiThietBi"
-                  formControlName="loaiThietBi"
+                  name="maThietBi"
+                  id="maThietBi"
+                  data-cy="maThietBi"
+                  formControlName="maThietBi"
                 />
               </td>
               <td>
@@ -48,20 +48,20 @@
                 <input
                   type="text"
                   class="form-control"
-                  name="loaiThietBi"
-                  id="field_loaiThietBi"
-                  data-cy="loaiThietBi"
-                  formControlName="loaiThietBi"
+                  name="dayChuyen"
+                  id="dayChuyen"
+                  data-cy="dayChuyen"
+                  formControlName="dayChuyen"
                 />
               </td>
               <td>
                 <input
                   type="text"
                   class="form-control"
-                  name="loaiThietBi"
-                  id="field_loaiThietBi"
-                  data-cy="loaiThietBi"
-                  formControlName="loaiThietBi"
+                  name="status"
+                  id="status"
+                  data-cy="status"
+                  formControlName="status"
                 />
               </td>
             </tr>
@@ -74,6 +74,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
           (click)="save()"
+          style="margin-bottom: 2em;"
         >
           <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
         </button>
@@ -83,7 +84,7 @@
             <fa-icon icon="plus"></fa-icon>
           </button> -->
 
-          <button (click)="addRow()">them</button>
+          <button (click)="addRow()">Add</button>
 
         <table class="table table-striped" aria-describedby="page-heading">
           <thead>
@@ -99,42 +100,42 @@
            <tbody>
                 <tr *ngFor="let data of listOfThietBi; let i = index" class="editable-row">
                   <td>
-                    <div class="editable-cell" [hidden]="editId === i+1" (click)="startEdit2(i+1)">
+                    <div [hidden]="editId === i+1" (click)="startEdit2(i+1)">
                       {{ data.id }}
                     </div>
-                    <input [hidden]="editId !== i+1" type="text" [(ngModel)]="data.id"
-                      (blur)="stopEdit()" />
+                    <input class="input-table" [hidden]="editId !== i+1" type="text" [(ngModel)]="data.id"
+                      (keydown.tab)="stopEdit()" [ngModelOptions]="{standalone: true}"/>
 
                   <td>
-                    <div class="editable-cell" [hidden]="editId === i+1" (click)="startEdit2(i+1)">
+                    <div [hidden]="editId === i+1" (click)="startEdit2(i+1)">
                       {{ data.maThongSo }}
                     </div>
-                    <input [hidden]="editId !== i+1" type="text" [(ngModel)]="data.maThongSo"
-                      (blur)="stopEdit()" />
+                    <input class="input-table" [hidden]="editId !== i+1" type="text" [(ngModel)]="data.maThongSo"
+                      (keydown.tab)="stopEdit()" [ngModelOptions]="{standalone: true}"/>
                   </td>
                 
                   <td>
-                    <div class="editable-cell" [hidden]="editId === i+1" (click)="startEdit2(i+1)">
+                    <div [hidden]="editId === i+1" (click)="startEdit2(i+1)">
                       {{ data.tenThongSo }}
                     </div>
-                    <input [hidden]="editId !== i+1" type="text" [(ngModel)]="data.tenThongSo"
-                      (blur)="stopEdit()" />
+                    <input class="input-table" [hidden]="editId !== i+1" type="text" [(ngModel)]="data.tenThongSo"
+                      (keydown.tab)="stopEdit()" [ngModelOptions]="{standalone: true}"/>
                   </td>
                 
                   <td>
-                    <div class="editable-cell" [hidden]="editId === i+1" (click)="startEdit2(i+1)">
+                    <div [hidden]="editId === i+1" (click)="startEdit2(i+1)">
                       {{ data.moTa }}
                     </div>
-                    <input [hidden]="editId !== i+1" type="text" [(ngModel)]="data.moTa"
-                      (blur)="stopEdit()" />
+                    <input class="input-table" [hidden]="editId !== i+1" type="text" [(ngModel)]="data.moTa"
+                      (keydown.tab)="stopEdit()" [ngModelOptions]="{standalone: true}"/>
                   </td>
                   <td>
-                    <div class="editable-cell" [hidden]="editId === i+1" (click)="startEdit2(i+1)">
+                    <div [hidden]="editId === i+1" (click)="startEdit2(i+1)">
                       {{ data.status }}
                     </div>
-                    <input [hidden]="editId !== i+1" type="text" [(ngModel)]="data.status" (blur)="stopEdit()" />
+                    <input class="input-table" [hidden]="editId !== i+1" type="text" [(ngModel)]="data.status" (keydown.tab)="stopEdit()" [ngModelOptions]="{standalone: true}"/>
                   </td>
-                  <td><button (click)="deleteRow(data.maThongSo)">Xoá</button></td>
+                  <td><button (click)="deleteRow(data.id)">Xoá</button></td>
                   </tr>
            </tbody>
           <!-- <tbody>

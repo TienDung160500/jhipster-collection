@@ -64,3 +64,21 @@ main {
 }
 
 
+.nav-item-dropdown {
+  position: relative;
+
+  &.nav-link.dropdown-toggle{
+    cursor: pointer;
+  }
+
+  &ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    background-color: #fff;
+  }
+}

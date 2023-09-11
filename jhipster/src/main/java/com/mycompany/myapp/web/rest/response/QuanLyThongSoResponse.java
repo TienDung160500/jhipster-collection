@@ -6,7 +6,7 @@ import java.util.Date;
 
 
 public class QuanLyThongSoResponse {
-    private Integer idThongSo;
+    private Long id;
     private String maThongSo;
     private String tenThongSo;
     private String moTa;
@@ -17,8 +17,8 @@ public class QuanLyThongSoResponse {
 
     public QuanLyThongSoResponse(){}
 
-    public QuanLyThongSoResponse(Integer idThongSo, String maThongSo, String tenThongSo, String moTa, ZonedDateTime ngayTao, ZonedDateTime timeUpdate, String updateBy, String status) {
-        this.idThongSo = idThongSo;
+    public QuanLyThongSoResponse(Long id, String maThongSo, String tenThongSo, String moTa, ZonedDateTime ngayTao, ZonedDateTime timeUpdate, String updateBy, String status) {
+        this.id = id;
         this.maThongSo = maThongSo;
         this.tenThongSo = tenThongSo;
         this.moTa = moTa;
@@ -28,12 +28,12 @@ public class QuanLyThongSoResponse {
         this.status = status;
     }
 
-    public Integer getIdThongSo() {
-        return idThongSo;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdThongSo(Integer idThongSo) {
-        this.idThongSo = idThongSo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getMaThongSo() {

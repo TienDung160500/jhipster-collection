@@ -228,6 +228,7 @@ export class ThietBiComponent implements OnInit {
     this.searchResults = [];
     //request den server
     const timKiem = {
+      
       maThietBi: this.maThietBi,
       loaiThietBi: this.loaiThietBi,
       dayChuyen: this.dayChuyen,
@@ -241,7 +242,9 @@ export class ThietBiComponent implements OnInit {
         //luu du lieu tra ve de hien thi len front-end
         this.thietBis = res;
         sessionStorage.setItem('thiet bi' + JSON.stringify(timKiem), res);
+        console.log("res", res)
       });
+
     } else {
       const result = sessionStorage.getItem('thiet bi' + JSON.stringify(timKiem));
       if (result) {
