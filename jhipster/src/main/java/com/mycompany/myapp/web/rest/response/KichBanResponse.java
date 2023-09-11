@@ -26,26 +26,13 @@ public class KichBanResponse {
 
     private String updateBy;
 
-    private String status;
+    private String trangThai;
     private List<ChiTietKichBan> kichBanList;
 
     public KichBanResponse() {
     }
 
-    public KichBanResponse(Long idKichBan, String maKichBan, String maThietBi, String loaiThietBi, String dayChuyen, String maSanPham, String versionSanPham, ZonedDateTime ngayTao, ZonedDateTime timeUpdate, String updateBy, String status, List<ChiTietKichBan> kichBanList) {
-        this.idKichBan = idKichBan;
-        this.maKichBan = maKichBan;
-        this.maThietBi = maThietBi;
-        this.loaiThietBi = loaiThietBi;
-        this.dayChuyen = dayChuyen;
-        this.maSanPham = maSanPham;
-        this.versionSanPham = versionSanPham;
-        this.ngayTao = ngayTao;
-        this.timeUpdate = timeUpdate;
-        this.updateBy = updateBy;
-        this.status = status;
-        this.kichBanList = kichBanList;
-    }
+
 
     public Long getIdKichBan() {
         return idKichBan;
@@ -127,12 +114,27 @@ public class KichBanResponse {
         this.updateBy = updateBy;
     }
 
-    public String getStatus() {
-        return status;
+    public KichBanResponse(Long idKichBan, String maKichBan, String maThietBi, String loaiThietBi, String dayChuyen, String maSanPham, String versionSanPham, ZonedDateTime ngayTao, ZonedDateTime timeUpdate, String updateBy, String trangThai, List<ChiTietKichBan> kichBanList) {
+        this.idKichBan = idKichBan;
+        this.maKichBan = maKichBan;
+        this.maThietBi = maThietBi;
+        this.loaiThietBi = loaiThietBi;
+        this.dayChuyen = dayChuyen;
+        this.maSanPham = maSanPham;
+        this.versionSanPham = versionSanPham;
+        this.ngayTao = ngayTao;
+        this.timeUpdate = timeUpdate;
+        this.updateBy = updateBy;
+        this.trangThai = trangThai;
+        this.kichBanList = kichBanList;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public String getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
     }
 
     public List<ChiTietKichBan> getKichBanList() {

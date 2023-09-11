@@ -27,6 +27,8 @@ export class QuanLyThongSoUpdateComponent implements OnInit {
 
   thongSoThietBi?: IQuanLyThongSo[];
 
+  selectedStatus: string | null = null;
+
   editForm = this.fb.group({
     id: [],
     maThongSo: [],
@@ -70,6 +72,10 @@ export class QuanLyThongSoUpdateComponent implements OnInit {
 
       this.updateForm(quanLyThongSo);
     });
+  }
+
+  onMaKichBanChange(): void { 
+    console.log('chon trang thai', this.selectedStatus)
   }
 
   previousState(): void {

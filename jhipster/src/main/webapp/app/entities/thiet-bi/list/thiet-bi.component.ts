@@ -90,24 +90,24 @@ export class ThietBiComponent implements OnInit {
   ngOnInit(): void {
     this.handleNavigation();
     // sử dụng fromEvent để tạo 1 Observable từ keyup
-    fromEvent(this.searchInput.nativeElement, 'keyup')
-      .pipe(
-        // sử dụng toán tử để quản lý sự kiện nhập
-        debounceTime(300),
-        distinctUntilChanged(),
-        switchMap(() => {
-          if (this.searchKeyword.trim() === '') {
-            return [];
-          }
-          //  kiểm tra từ khóa tìm kiếm không trống thì gọi hàm fetchSearcgSuggestions để lấy gợi ý
-          return this.fetchSearchSuggestions(this.searchKeyword);
-        })
-      )
-      // kết quả gợi ý được lưu trong searchSuggestions và giao diện người dùng được cập nhật để hiển thị danh sách gợi ý
-      .subscribe(suggestions => {
-        this.searchSuggestions = suggestions;
-        this.showSuggestions = true;
-      });
+    // fromEvent(this.searchInput.nativeElement, 'keyup')
+    //   .pipe(
+    //     // sử dụng toán tử để quản lý sự kiện nhập
+    //     debounceTime(300),
+    //     distinctUntilChanged(),
+    //     switchMap(() => {
+    //       if (this.searchKeyword.trim() === '') {
+    //         return [];
+    //       }
+    //       //  kiểm tra từ khóa tìm kiếm không trống thì gọi hàm fetchSearcgSuggestions để lấy gợi ý
+    //       return this.fetchSearchSuggestions(this.searchKeyword);
+    //     })
+    //   )
+    //   // kết quả gợi ý được lưu trong searchSuggestions và giao diện người dùng được cập nhật để hiển thị danh sách gợi ý
+    //   .subscribe(suggestions => {
+    //     this.searchSuggestions = suggestions;
+    //     this.showSuggestions = true;
+    //   });
   }
 
   // được gọi mỗi khi có sự kiện nhập trong ô tìm kiếm, kiểm tra nếu từ khóa tìm kiếm trống thì showSuggestions là false
@@ -245,7 +245,7 @@ export class ThietBiComponent implements OnInit {
     } else {
       const result = sessionStorage.getItem('thiet bi' + JSON.stringify(timKiem));
       if (result) {
-        this.searchResults = JSON.parse(result);
+        this.thietBis = JSON.parse(result);
       }
     }
   }

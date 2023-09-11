@@ -1,5 +1,5 @@
-<div class="">
-  <div class="col-8">
+<div>
+  <div>
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-kich-ban-heading" data-cy="KichBanCreateUpdateHeading">Thêm mới kịch bản</h2>
       <header class="header-tsm">
@@ -8,10 +8,10 @@
           <label for="maKichBan">
             <p>Mã kịch bản</p>
           </label>
-          <select class="form-control" id="maKichBan" data-cy="maKichBan" name="maKichBan" formControlName="maKichBan" (change)="onMaKichBanChange()">
+          <select class="form-control" id="maKichBan"name="maKichBan" formControlName="maKichBan" (change)="onMaKichBanChange()">
             <option [ngValue]="null"></option>
             <option
-              [ngValue]="maKichBanOption.id === editForm.get('KichBan')!.value?.id ?editForm.get('KichBan')!.value : maKichBanOption "
+              [ngValue]="maKichBanOption.maKichBan"
               *ngFor="let maKichBanOption of kichBansSharedCollection; trackBy: trackThietBiById">
               {{maKichBanOption.maKichBan}}</option>
           </select>
@@ -89,27 +89,27 @@
           <tbody>
             <tr  data-cy="entityTable">
               <td>
-                <input type="text" class="form-control-table" name="thongSo" id="field_thongSo" data-cy="thongSo"
+                <input type="text" class="form-control-table" name="thongSo" id="field_thongSo"
                   formControlName="thongSo" />
               </td>
               <td>
-                <input type="text" class="form-control-table" name="MinValue" id="field_MinValue" data-cy="MinValue"
+                <input type="text" class="form-control-table" name="MinValue" id="field_MinValue"
                   formControlName="MinValue" />
               </td>
               <td>
-                <input type="text" class="form-control-table" name="MaxValue" id="field_MaxValue" data-cy="MaxValue"
+                <input type="text" class="form-control-table" name="MaxValue" id="field_MaxValue"
                   formControlName="MaxValue" />
               </td>
               <td>
-                <input type="text" class="form-control-table" name="trungBinh" id="field_trungBinh" data-cy="trungBinh"
+                <input type="text" class="form-control-table" name="trungBinh" id="field_trungBinh"
                   formControlName="trungBinh" />
               </td>
               <td>
-                <input type="text" class="form-control-table" name="donVi" id="field_donVi" data-cy="donVi"
+                <input type="text" class="form-control-table" name="donVi" id="field_donVi"
                   formControlName="donVi" />
               </td>
               <td>
-                <input type="text" class="form-control-table" name="phanLoai" id="field_phanLoai" data-cy="phanLoai"
+                <input type="text" class="form-control-table" name="phanLoai" id="field_phanLoai"
                   formControlName="phanLoai" />
               </td>
             </tr>

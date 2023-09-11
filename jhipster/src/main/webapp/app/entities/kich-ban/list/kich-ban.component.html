@@ -72,18 +72,7 @@
               <li *ngFor="let result of searchResults">{{ result.versionSanPham }}</li>
             </ul>
           </th>
-          <th scope="col" jhiSortBy="maSanPham">
-            <span>Mã sản phẩm</span>
-            <input #searchInput type="text" [(ngModel)]="maSanPham" (keyup.enter)= "timKiemKichBan()" placeholder="search" />
-
-            <ul>
-              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
-            </ul>
-
-            <ul *ngIf="searchResults.length > 0">
-              <li *ngFor="let result of searchResults">{{ result.maSanPham }}</li>
-            </ul>
-          </th>
+          
           <th scope="col" jhiSortBy="ngayTao">
             <span>Ngày tạo</span>
             <input #searchInput type="text" [(ngModel)]="ngayTao" (keyup.enter)= "timKiemKichBan()" placeholder="search" />
@@ -136,11 +125,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let kichBan of kichBans; trackBy: trackId" data-cy="entityTable">
+        <tr *ngFor="let kichBan of kichBans;let i =index; trackBy: trackId" data-cy="entityTable">
           <td>
-            <a [routerLink]="['/kich-ban', kichBan.id, 'view']">{{ kichBan.id }}</a>
+            {{i+1}}
           </td>
-          <td>{{ kichBan.maKichBan }}</td>
           <td>{{ kichBan.maKichBan }}</td>
           <td>{{ kichBan.maSanPham }}</td>
           <td>{{ kichBan.versionSanPham }}</td>

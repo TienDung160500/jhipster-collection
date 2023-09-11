@@ -23,7 +23,7 @@ public class KichBanRequest {
 
     private String updateBy;
 
-    private String status;
+    private String trangThai;
 
     public KichBanRequest() {
     }
@@ -100,11 +100,11 @@ public class KichBanRequest {
         this.updateBy = updateBy;
     }
 
-    public String getStatus() {
-        return status;
+    public String getTrangThai() {
+        return trangThai;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
     }
 }

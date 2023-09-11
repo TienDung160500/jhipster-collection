@@ -322,7 +322,7 @@ public class UserServices {
         response.setNgayTao(entity.getNgayTao());
         response.setTimeUpdate(entity.getTimeUpdate());
         response.setUpdateBy(entity.getUpdateBy());
-        response.setStatus(entity.getTrangThai());
+        response.setTrangThai(entity.getTrangThai());
         return response;
     }
 
@@ -341,11 +341,11 @@ public class UserServices {
     public List<KichBanResponse> timKiemKichBan(KichBanRequest request) {
         List<KichBan> entities = kichBanRepository.timKiemKichBan(request.getMaKichBan(), request.getMaThietBi(),
                 request.getLoaiThietBi(), request.getDayChuyen(), request.getMaSanPham(), request.getVersionSanPham(),
-                request.getNgayTao(), request.getTimeUpdate(), request.getUpdateBy(), request.getStatus());
+                request.getNgayTao(), request.getTimeUpdate(), request.getUpdateBy(), request.getTrangThai());
         log.info("" + request);
         List<KichBanResponse> responseList = new ArrayList<>();
         for (KichBan entity : entities) {
-            log.info("thanh cong !");
+            System.out.println("thanh cong !: "+entities);
             KichBanResponse response = getKichBanResponse(entity);
             responseList.add(response);
         }
@@ -365,7 +365,7 @@ public class UserServices {
         entity.setNgayTao(request.getNgayTao());
         entity.setTimeUpdate(request.getTimeUpdate());
         entity.setUpdateBy(request.getUpdateBy());
-        entity.setTrangThai(request.getStatus());
+        entity.setTrangThai(request.getTrangThai());
         kichBanRepository.save(entity);
         return "Them moi kich ban thanh cong";
     }
@@ -474,7 +474,7 @@ public String postChiTietKichBan(List<ChiTietKichBanRequest> requests){
         response.setVersionSanPham(entity.getVersionSanPham());
         response.setNgayTao(entity.getNgayTao());
         response.setTimeUpdate(entity.getTimeUpdate());
-        response.setStatus(entity.getTrangThai());
+        response.setTrangThai(entity.getTrangThai());
         return response;
     }
 
@@ -493,7 +493,7 @@ public String postChiTietKichBan(List<ChiTietKichBanRequest> requests){
     public List<SanXuatHangNgayResponse> timKiemSanxuatHangNgay(SanXuatHangNgayRequest request) {
         List<SanXuatHangNgay> entities = sanXuatHangNgayRepository.timKiemSanXuatHangNgay(request.getMaKichBan(), request.getMaThietBi(),
                 request.getLoaiThietBi(), request.getDayChuyen(), request.getMaSanPham(), request.getVersionSanPham(),
-                request.getNgayTao(), request.getTimeUpdate(), request.getStatus());
+                request.getNgayTao(), request.getTimeUpdate(), request.getTrangThai());
         log.info("" + request);
         List<SanXuatHangNgayResponse> responseList = new ArrayList<>();
         for (SanXuatHangNgay entity : entities) {
@@ -516,7 +516,7 @@ public String postChiTietKichBan(List<ChiTietKichBanRequest> requests){
         entity.setVersionSanPham(request.getVersionSanPham());
         entity.setNgayTao(request.getNgayTao());
         entity.setTimeUpdate(request.getTimeUpdate());
-        entity.setTrangThai(request.getStatus());
+        entity.setTrangThai(request.getTrangThai());
         sanXuatHangNgayRepository.save(entity);
         // Note lay danh sach thong so theo ma kich ban tu table chi tiet kich ban
         List<ChiTietKichBan> entities = chiTietKichBanRepository.findAllByMaKichBan(request.getMaKichBan());

@@ -28,13 +28,13 @@ public class SanXuatHangNgayResponse {
 
     private ZonedDateTime timeUpdate;
 
-    private String status;
+    private String trangThai;
     private List<ChiTietSanXuat> chiTietSanXuat;
 
     public SanXuatHangNgayResponse() {
     }
 
-    public SanXuatHangNgayResponse(Long idSanXuatHangNgay, String maKichBan, String maThietBi, String loaiThietBi, String dayChuyen, String maSanPham, String versionSanPham, ZonedDateTime ngayTao, ZonedDateTime timeUpdate, String status, List<ChiTietSanXuat> chiTietSanXuat) {
+    public SanXuatHangNgayResponse(Long idSanXuatHangNgay, String maKichBan, String maThietBi, String loaiThietBi, String dayChuyen, String maSanPham, String versionSanPham, ZonedDateTime ngayTao, ZonedDateTime timeUpdate, String trangThai, List<ChiTietSanXuat> chiTietSanXuat) {
         this.idSanXuatHangNgay = idSanXuatHangNgay;
         this.maKichBan = maKichBan;
         this.maThietBi = maThietBi;
@@ -44,7 +44,7 @@ public class SanXuatHangNgayResponse {
         this.versionSanPham = versionSanPham;
         this.ngayTao = ngayTao;
         this.timeUpdate = timeUpdate;
-        this.status = status;
+        this.trangThai = trangThai;
         this.chiTietSanXuat = chiTietSanXuat;
     }
 
@@ -120,12 +120,12 @@ public class SanXuatHangNgayResponse {
         this.timeUpdate = timeUpdate;
     }
 
-    public String getStatus() {
-        return status;
+    public String getTrangThai() {
+        return trangThai;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
     }
 
     public List<ChiTietSanXuat> getChiTietSanXuat() {

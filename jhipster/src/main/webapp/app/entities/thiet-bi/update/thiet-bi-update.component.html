@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <form name="editForm" role="form" novalidate [formGroup]="editForm">
       <h2 id="jhi-thiet-bi-heading" data-cy="ThietBiCreateUpdateHeading">Thêm mới thiết bị</h2>
       <!-- <button id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-thong-so-may"
         [routerLink]="['/thong-so-may/new']">
@@ -73,6 +73,7 @@
           data-cy="entityCreateSaveButton"
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
+          (click)="save()"
         >
           <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
         </button>
@@ -82,11 +83,12 @@
             <fa-icon icon="plus"></fa-icon>
           </button> -->
 
-          <button (click)="addRow()"></button>
+          <button (click)="addRow()">them</button>
 
         <table class="table table-striped" aria-describedby="page-heading">
           <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending">
+              <th scope="col" jhiSortBy="maThietBi"><span>Mã thông số</span></th>
               <th scope="col" jhiSortBy="maThietBi"><span>Thông số</span></th>
               <th scope="col" jhiSortBy="loaiThietBi"><span>Mô tả</span></th>
               <th scope="col" jhiSortBy="updateBy"><span>Phân loại</span></th>
@@ -94,8 +96,48 @@
               <th scope="col"></th>
             </tr>
           </thead>
+           <tbody>
+                <tr *ngFor="let data of listOfThietBi; let i = index" class="editable-row">
+                  <td>
+                    <div class="editable-cell" [hidden]="editId === i+1" (click)="startEdit2(i+1)">
+                      {{ data.id }}
+                    </div>
+                    <input [hidden]="editId !== i+1" type="text" [(ngModel)]="data.id"
+                      (blur)="stopEdit()" />
 
-          <tbody>
+                  <td>
+                    <div class="editable-cell" [hidden]="editId === i+1" (click)="startEdit2(i+1)">
+                      {{ data.maThongSo }}
+                    </div>
+                    <input [hidden]="editId !== i+1" type="text" [(ngModel)]="data.maThongSo"
+                      (blur)="stopEdit()" />
+                  </td>
+                
+                  <td>
+                    <div class="editable-cell" [hidden]="editId === i+1" (click)="startEdit2(i+1)">
+                      {{ data.tenThongSo }}
+                    </div>
+                    <input [hidden]="editId !== i+1" type="text" [(ngModel)]="data.tenThongSo"
+                      (blur)="stopEdit()" />
+                  </td>
+                
+                  <td>
+                    <div class="editable-cell" [hidden]="editId === i+1" (click)="startEdit2(i+1)">
+                      {{ data.moTa }}
+                    </div>
+                    <input [hidden]="editId !== i+1" type="text" [(ngModel)]="data.moTa"
+                      (blur)="stopEdit()" />
+                  </td>
+                  <td>
+                    <div class="editable-cell" [hidden]="editId === i+1" (click)="startEdit2(i+1)">
+                      {{ data.status }}
+                    </div>
+                    <input [hidden]="editId !== i+1" type="text" [(ngModel)]="data.status" (blur)="stopEdit()" />
+                  </td>
+                  <td><button (click)="deleteRow(data.maThongSo)">Xoá</button></td>
+                  </tr>
+           </tbody>
+          <!-- <tbody>
             <tr data-cy="entityTable">
               <td>
                 <input
@@ -134,7 +176,7 @@
                 />
               </td>
             </tr>
-          </tbody>
+          </tbody> -->
         </table>
 
         <div>
@@ -148,6 +190,7 @@
             data-cy="entityCreateSaveButton"
             [disabled]="editForm.invalid || isSaving"
             class="btn btn-primary"
+            (click)="save()"
           >
             <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
           </button>

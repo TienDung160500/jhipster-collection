@@ -23,7 +23,7 @@ public class SanXuatHangNgayRequest {
 
     private ZonedDateTime timeUpdate;
 
-    private String status;
+    private String trangThai;
 
     public SanXuatHangNgayRequest() {
     }
@@ -100,11 +100,11 @@ public class SanXuatHangNgayRequest {
         this.timeUpdate = timeUpdate;
     }
 
-    public String getStatus() {
-        return status;
+    public String getTrangThai() {
+        return trangThai;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
     }
 }

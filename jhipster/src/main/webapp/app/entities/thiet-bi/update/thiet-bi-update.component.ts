@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -20,10 +20,28 @@ export class ThietBiUpdateComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
 
+  i = 0;
+  editId: number | null = null;
+
+  @Input() id = '';
+  @Input() status = '';
+  @Input() maThongSo = '';
+  @Input() moTa = '';
+  @Input() tenThongSo = '';
+
   thietBisSharedCollection: IThietBi[] = [];
 
   form: FormGroup;
-
+  listOfThietBi = [
+    {
+      id: '',
+      idThongSo: '',
+      maThongSo: '',
+      tenThongSo: '',
+      moTa: '',
+      status: '',
+    },
+  ];
   editForm = this.fb.group({
     id: [],
     maThietBi: [],
@@ -35,17 +53,14 @@ export class ThietBiUpdateComponent implements OnInit {
     status: [],
   });
 
-  constructor(
-    protected thietBiService: ThietBiService,
-    protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder) {
+  constructor(protected thietBiService: ThietBiService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {
     this.form = this.fb.group({
       maThietBi: ['', Validators.required],
       loaiThietBi: ['', Validators.required],
       updateBy: ['', Validators.required],
       trangThai: ['', Validators.required],
-    })
-     }
+    });
+  }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ thietBi }) => {
@@ -71,11 +86,11 @@ export class ThietBiUpdateComponent implements OnInit {
     return item.id!;
   }
 
-  addRow():void {
-    if (this.form.valid) {
-      this.form.reset();
-    }
-  }
+  // addRow(): void {
+  //   if (this.form.valid) {
+  //     this.form.reset();
+  //   }
+  // }
 
   save(): void {
     this.isSaving = true;
@@ -87,26 +102,26 @@ export class ThietBiUpdateComponent implements OnInit {
     }
   }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<IThietBi>>): void {
+  subscribeToSaveResponse(result: Observable<HttpResponse<IThietBi>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
       next: () => this.onSaveSuccess(),
       error: () => this.onSaveError(),
     });
   }
 
-  protected onSaveSuccess(): void {
+  onSaveSuccess(): void {
     this.previousState();
   }
 
-  protected onSaveError(): void {
+  onSaveError(): void {
     // Api for inheritance.
   }
 
-  protected onSaveFinalize(): void {
+  onSaveFinalize(): void {
     this.isSaving = false;
   }
 
-  protected updateForm(thietBi: IThietBi): void {
+  updateForm(thietBi: IThietBi): void {
     this.editForm.patchValue({
       id: thietBi.id,
       maThietBi: thietBi.maThietBi,
@@ -119,7 +134,7 @@ export class ThietBiUpdateComponent implements OnInit {
     });
   }
 
-  protected createFromForm(): IThietBi {
+  createFromForm(): IThietBi {
     return {
       ...new ThietBi(),
       id: this.editForm.get(['id'])!.value,
@@ -131,5 +146,41 @@ export class ThietBiUpdateComponent implements OnInit {
       updateBy: this.editForm.get(['updateBy'])!.value,
       status: this.editForm.get(['status'])!.value,
     };
+  }
+
+  startEdit2(id: number): void {
+    this.editId = id;
+  }
+
+  stopEdit(): void {
+    this.editId = null;
+  }
+
+  // count() {
+
+  // }
+
+  // khai bao lai them bien va them vao body
+  // click vao o du lieu se reload (co du lieu)
+  addRow(): void {
+    this.listOfThietBi = [
+      ...this.listOfThietBi,
+      {
+        id: '',
+        idThongSo:'',
+        maThongSo: '',
+        tenThongSo: '',
+        moTa: '',
+        status: '',
+      },
+    ];
+    console.log('add row', this.listOfThietBi);
+
+    this.i++;
+  }
+
+  // sua lai xoa theo stt va ma thong so (id )
+  deleteRow(id: string): void {
+    this.listOfThietBi = this.listOfThietBi.filter(d => d.id !== this.id && d.idThongSo !== this.idThongSo);
   }
 }

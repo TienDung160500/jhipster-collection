@@ -1,7 +1,8 @@
+import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { IThietBi } from 'app/entities/thiet-bi/thiet-bi.model';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { HttpHeaders, HttpResponse, HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -15,11 +16,22 @@ import { SanXuatHangNgayDeleteDialogComponent } from '../delete/san-xuat-hang-ng
 @Component({
   selector: 'jhi-san-xuat-hang-ngay',
   templateUrl: './san-xuat-hang-ngay.component.html',
-  styleUrls: ['./san-xuat-hang-ngay.component.css']
+  styleUrls: ['./san-xuat-hang-ngay.component.css'],
 })
 export class SanXuatHangNgayComponent implements OnInit {
+  resourceUrl = this.applicationConfigService.getEndpointFor('api/san-xuat-hang-ngay/tim-kiem');
 
   form: FormGroup = new FormGroup({});
+
+  maKichBan = '';
+  maThietBi = '';
+  loaiThietBi = '';
+  dayChuyen = '';
+  maSanPham = '';
+  versionSanPham = '';
+  ngayTao = null;
+  timeUpdate = null;
+  trangThai = '';
 
   sanXuatHangNgays?: ISanXuatHangNgay[];
   isLoading = false;
@@ -44,6 +56,19 @@ export class SanXuatHangNgayComponent implements OnInit {
     thietBi: [],
   });
 
+  searchResults: ISanXuatHangNgay[] = [];
+
+  // lưu từ khóa tìm kiếm
+  searchKeyword = '';
+  // lưu kết quả tìm kiếm
+  seachResult: any[] = [];
+  // lưu các gợi ý tìm kiếm
+  searchSuggestions: string[] = [];
+  // hiển thị danh sácsh tìm kiếm
+  showSuggestions = false;
+  // theo dõi sự kiện keyup trên ô tìm kiếm
+  @ViewChild('searchInput', { static: true })
+  searchInput!: ElementRef;
 
   constructor(
     protected sanXuatHangNgayService: SanXuatHangNgayService,
@@ -51,8 +76,40 @@ export class SanXuatHangNgayComponent implements OnInit {
     protected router: Router,
     protected modalService: NgbModal,
     protected fb: FormBuilder,
-  ) { }
-  
+    protected http: HttpClient,
+    protected applicationConfigService: ApplicationConfigService
+  ) {}
+
+  timKiemThietBi(): void {
+    //xoa du lieu cu
+    this.searchResults = [];
+    //request den server
+    const timKiem = {
+      maKichBan: this.maKichBan,
+      maThietBi: this.maThietBi,
+      loaiThietBi: this.loaiThietBi,
+      dayChuyen: this.dayChuyen,
+      maSanPham: this.maSanPham,
+      versionSanPham: this.versionSanPham,
+      ngayTao: this.ngayTao,
+      timeUpdate: this.timeUpdate,
+      updateBy: '',
+      trangThai: this.trangThai,
+    };
+    if (sessionStorage.getItem('thiet bi' + JSON.stringify(timKiem)) === null) {
+      this.http.post<any>(this.resourceUrl, timKiem).subscribe(res => {
+        //luu du lieu tra ve de hien thi len front-end
+        this.sanXuatHangNgays = res;
+        sessionStorage.setItem('thiet bi' + JSON.stringify(timKiem), res);
+      });
+    } else {
+      const result = sessionStorage.getItem('thiet bi' + JSON.stringify(timKiem));
+      if (result) {
+        this.searchResults = JSON.parse(result);
+      }
+    }
+  }
+
   trackThietBiById(_index: number, item: IThietBi): number {
     return item.id!;
   }

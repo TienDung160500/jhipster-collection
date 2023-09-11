@@ -2,25 +2,15 @@
   <h2 id="page-heading" data-cy="SanXuatHangNgayHeading">
     <span>Sản xuất hàng ngày</span>
 
-    <form [formGroup]="form" class="form-gr">
-        <header class="header-tsm">
+    <!-- <form [formGroup]="form">
+        <header>
           <div>
-            <label class="form-label" for="field_maThietBi"><p>Mã sản phẩm</p></label>
-            <select class="form-control" id="field_maThietBi" data-cy="maThietBi" name="maThietBi" formControlName="maThietBi" >
+            <label ><p>Mã sản phẩm</p></label>
+            <select class="form-control" id="maSanPham" name="maSanPham" formControlName="maSanPham" >
               <option [ngValue]="null"></option>
-              <option [ngValue]="maThietBiOption.id === editForm.get('maThietBi')!.value?.id ?editForm.get('maThietBi')!.value : maThietBiOption "
-              *ngFor="let maThietBiOption of thietBisSharedCollection; trackBy: trackThietBiById"
-              >{{maThietBiOption.maThietBi}}</option>
-            </select>
-          </div>
-          
-          <div>
-            <label class="form-label" for="field_maThietBi"><p>Tên sản phẩm</p></label>
-            <select class="form-control" id="field_maThietBi" data-cy="maThietBi" name="maThietBi" formControlName="maThietBi" >
-              <option [ngValue]="null"></option>
-              <option [ngValue]="maThietBiOption.id === editForm.get('maThietBi')!.value?.id ?editForm.get('maThietBi')!.value : maThietBiOption "
-              *ngFor="let maThietBiOption of thietBisSharedCollection; trackBy: trackThietBiById"
-              >{{maThietBiOption.maThietBi}}</option>
+              <option [ngValue]="sanXuatHangNgay.maSanPham"
+              *ngFor="let sanXuatHangNgay of sanXuatHangNgays; trackBy: trackThietBiById"
+              >{{sanXuatHangNgay.maSanPham}}</option>
             </select>
           </div>
     
@@ -34,7 +24,7 @@
             </select>
           </div>
         </header>
-      </form>
+      </form> -->
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
@@ -66,23 +56,115 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending">
-          <th scope="col" jhiSortBy="id"><span>STT</span></th>
-          <th scope="col" jhiSortBy="maKichBan"><span>Mã kịch bản</span></th>
-          <th scope="col" jhiSortBy="maThietBi"><span>Mã thiết bị</span></th>
-          <th scope="col" jhiSortBy="loaiThietBi"><span>Loại thiết bị</span></th>
-          <th scope="col" jhiSortBy="dayChuyen"><span>Dây chuyền</span></th>
-          <th scope="col" jhiSortBy="maSanPham"><span>Mã sản phẩm</span></th>
-          <th scope="col" jhiSortBy="versionSanPham"><span>Vesion sản phẩm</span></th>
-          <th scope="col" jhiSortBy="ngayTao"><span>Ngày tạo</span></th>
-          <th scope="col" jhiSortBy="timeUpdate"><span>Time Update</span></th>
-          <th scope="col" jhiSortBy="trangThai"><span>Trạng thái</span></th>
+          <th scope="col" jhiSortBy="id">
+            <span>STT</span>
+          </th>
+          <th scope="col" jhiSortBy="maKichBan">
+            <span>Mã kịch bản</span>
+            <input #searchInput type="text" [(ngModel)]="maKichBan" (keyup.enter)= "timKiemThietBi()" placeholder="search" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.maKichBan }}</li>
+            </ul>
+          </th>
+
+          <th scope="col" jhiSortBy="maThietBi">
+            <span>Mã thiết bị</span>
+            <input #searchInput type="text" [(ngModel)]="maThietBi" (keyup.enter)= "timKiemThietBi()" placeholder="search" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.maThietBi }}</li>
+            </ul>
+          </th>
+
+          <th scope="col" jhiSortBy="loaiThietBi">
+            <span>Loại thiết bị</span>
+            <input #searchInput type="text" [(ngModel)]="loaiThietBi" (keyup.enter)= "timKiemThietBi()" placeholder="search" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.loaiThietBi }}</li>
+            </ul>
+          </th>
+
+          <th scope="col" jhiSortBy="dayChuyen">
+            <span>Dây chuyền</span>
+            <input #searchInput type="text" [(ngModel)]="dayChuyen" (keyup.enter)= "timKiemThietBi()" placeholder="search" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.dayChuyen }}</li>
+            </ul>
+          </th>
+
+          <th scope="col" jhiSortBy="maSanPham">
+            <span>Mã sản phẩm</span>
+            <input #searchInput type="text" [(ngModel)]="maSanPham" (keyup.enter)= "timKiemThietBi()" placeholder="search" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.maSanPham }}</li>
+            </ul>
+          </th>
+
+          <th scope="col" jhiSortBy="versionSanPham">
+            <span>Vesion sản phẩm</span>
+            <input #searchInput type="text" [(ngModel)]="versionSanPham" (keyup.enter)= "timKiemThietBi()" placeholder="search" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.versionSanPham }}</li>
+            </ul>
+          </th>
+
+          <th scope="col" jhiSortBy="ngayTao">
+            <span>Ngày tạo</span>
+            <input #searchInput type="text" [(ngModel)]="ngayTao" (keyup.enter)= "timKiemThietBi()" placeholder="search" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.ngayTao }}</li>
+            </ul>
+          </th>
+
+          <th scope="col" jhiSortBy="timeUpdate">
+            <span>Time Update</span>
+            <input #searchInput type="text" [(ngModel)]="timeUpdate" (keyup.enter)= "timKiemThietBi()" placeholder="search" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.timeUpdate }}</li>
+            </ul>
+          </th>
+
+          <th scope="col" jhiSortBy="trangThai">
+            <span>Trạng thái</span>
+            <input #searchInput type="text" [(ngModel)]="trangThai" (keyup.enter)= "timKiemThietBi()" placeholder="search" />
+            <ul>
+              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
+            </ul>
+            <ul *ngIf="searchResults.length > 0">
+              <li *ngFor="let result of searchResults">{{ result.trangThai }}</li>
+            </ul>
+          </th>
+
           <th scope="col">Options</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let sanXuatHangNgay of sanXuatHangNgays; trackBy: trackId" data-cy="entityTable">
+        <tr *ngFor="let sanXuatHangNgay of sanXuatHangNgays;let i = index; trackBy: trackId" data-cy="entityTable">
           <td>
-            <a [routerLink]="['/san-xuat-hang-ngay', sanXuatHangNgay.id, 'view']">{{ sanXuatHangNgay.id }}</a>
+            {{i+1}}
           </td>
           <td>{{ sanXuatHangNgay.maKichBan }}</td>
           <td>{{ sanXuatHangNgay.maThietBi }}</td>
