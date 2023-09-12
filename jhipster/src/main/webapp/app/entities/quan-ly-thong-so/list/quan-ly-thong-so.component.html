@@ -2,6 +2,8 @@
   <h2 id="page-heading" data-cy="QuanLyThongSoHeading">
     <span>Quản lý thông số</span>
 
+
+
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
@@ -46,7 +48,7 @@
           </th>
           <th scope="col" jhiSortBy="tenThongSo">
             <span>Tên thông số</span>
-            <input type="text" />
+            <input type="text" [(ngModel)]="maThongSo" (keyup.enter)= "timKiemThietBi()" placeholder="search"/>
             <ul>
               <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
             </ul>
@@ -58,7 +60,7 @@
 
           <th scope="col" jhiSortBy="moTa">
             <span>Mô tả</span>
-            <input type="text" />
+            <input type="text" [(ngModel)]="maThongSo" (keyup.enter)= "timKiemThietBi()" placeholder="search"/>
             <ul>
               <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
             </ul>
@@ -94,7 +96,7 @@
 
           <th scope="col" jhiSortBy="updateBy">
             <span>Update By</span>
-            <input type="text" />
+            <input type="text" [(ngModel)]="maThongSo" (keyup.enter)= "timKiemThietBi()" placeholder="search"/>
             <ul>
               <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
             </ul>
@@ -106,14 +108,11 @@
 
           <th scope="col" jhiSortBy="status">
             <span>Trạng thái</span>
-            <input type="text" />
-            <ul>
-              <li *ngFor="let suggesion of searchSuggestions">{{suggesion}}</li>
-            </ul>
-
-            <ul *ngIf="searchResults.length > 0">
-              <li *ngFor="let result of searchResults">{{ result.status }}</li>
-            </ul>
+            <select class="form-control" id="maKichBan" data-cy="maKichBan" name="maKichBan" formControlName="maKichBan" [(ngModel)]="selectedStatus" (change)="onChangeSearch()">
+              <option [ngValue]="null">-- Chọn trạng thái --</option>
+              <option value="active">Active</option>
+              <option value="deactive">Deactive</option>
+            </select>
           </th>
           
           <th scope="col">Options</th>

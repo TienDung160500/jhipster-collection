@@ -1,8 +1,10 @@
+import { switchMap } from 'rxjs/operators';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { HttpHeaders, HttpResponse, HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Subject, debounceTime, distinctUntilChanged, Observable, of } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IQuanLyThongSo } from '../quan-ly-thong-so.model';
@@ -19,6 +21,8 @@ import { QuanLyThongSoDeleteDialogComponent } from '../delete/quan-ly-thong-so-d
 export class QuanLyThongSoComponent implements OnInit {
   resourceUrl = this.applicationConfigService.getEndpointFor('api/quan-ly-thong-so/tim-kiem');
 
+  resourceUrlSearch = this.applicationConfigService.getEndpointFor('api/quan-ly-thong-so');
+
   @Input() maThongSo = '';
   @Input() tenThongSo = '';
   @Input() moTa = '';
@@ -26,6 +30,16 @@ export class QuanLyThongSoComponent implements OnInit {
   @Input() ngayUpdate = null;
   @Input() updateBy = '';
   @Input() status = '';
+
+  quanLyThongSo: IQuanLyThongSo[] = [];
+
+  selectedStatus: string | null = null;
+
+  searchTerm = '';
+  searchResult: any[] = [];
+  // searchForm: FormGroup;
+
+  searchTerms = new Subject<string>();
 
   quanLyThongSos?: IQuanLyThongSo[];
   isLoading = false;
@@ -56,8 +70,29 @@ export class QuanLyThongSoComponent implements OnInit {
     protected router: Router,
     protected modalService: NgbModal,
     protected http: HttpClient,
-    protected applicationConfigService: ApplicationConfigService
+    protected applicationConfigService: ApplicationConfigService,
+    private formBuilder: FormBuilder
   ) {}
+
+  getQuanLyThongSoList(): void {
+    this.http.get<any>(this.resourceUrlSearch).subscribe(res => {
+      this.quanLyThongSo = res;
+      console.log('log', this.quanLyThongSo);
+    });
+  }
+
+  onChangeSearch(): void {
+    console.log('Selected Status:', this.selectedStatus);
+  }
+
+  onChangeQuanlyThongSo(): void {
+    const results = this.quanLyThongSo.find((obj: IQuanLyThongSo) => obj.maThongSo === this.maThongSo);
+    console.log(results);
+  }
+
+  onSearch(): void {
+    this.searchResults = this.quanLyThongSo.filter((obj: any) => obj.name.toLowerCase().includes(this.searchTerm.toLowerCase));
+  }
 
   timKiemThietBi(): void {
     //xoa du lieu cu
@@ -110,6 +145,42 @@ export class QuanLyThongSoComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleNavigation();
+    this.getQuanLyThongSoList();
+
+    // this.searchTerms
+    //   .pipe(
+    //     debounceTime(300),
+    //     distinctUntilChanged(),
+    //     switchMap(term=>this.search(term))
+    // )
+    //   .subscribe(results => {
+    //   // this.searchResult = results;
+    // })
+
+    // this.quanLyThongSoService.query().subscribe(
+    //   (res: HttpResponse<IQuanLyThongSo[]>) => {
+    //     this.quanLyThongSos = res.body as any;
+    //   },
+    //   (res: HttpErrorResponse) => this.onError(res.message)
+    // );
+
+  }
+
+  // search(term: string): Observable<any>[] {
+  //   if (!term.trim()) {
+  //     return ([])
+  //   }
+  //   return this.http.get<any[]>(this.resourceUrlSearch);
+  // }
+
+  onSearchTermChange(): void {
+    this.searchTerms.next(this.searchTerm);
+  }
+
+  selectResult(result: any): void {
+    console.log('select result', result);
+    this.searchTerm = '';
+    this.searchResult = [];
   }
 
   trackId(_index: number, item: IQuanLyThongSo): number {
@@ -127,7 +198,7 @@ export class QuanLyThongSoComponent implements OnInit {
     });
   }
 
-  protected sort(): string[] {
+  sort(): string[] {
     const result = [this.predicate + ',' + (this.ascending ? ASC : DESC)];
     if (this.predicate !== 'id') {
       result.push('id');
@@ -135,7 +206,7 @@ export class QuanLyThongSoComponent implements OnInit {
     return result;
   }
 
-  protected handleNavigation(): void {
+  handleNavigation(): void {
     combineLatest([this.activatedRoute.data, this.activatedRoute.queryParamMap]).subscribe(([data, params]) => {
       const page = params.get('page');
       const pageNumber = +(page ?? 1);
@@ -150,7 +221,7 @@ export class QuanLyThongSoComponent implements OnInit {
     });
   }
 
-  protected onSuccess(data: IQuanLyThongSo[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
+  onSuccess(data: IQuanLyThongSo[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.page = page;
     if (navigate) {
@@ -166,7 +237,7 @@ export class QuanLyThongSoComponent implements OnInit {
     this.ngbPaginationPage = this.page;
   }
 
-  protected onError(): void {
+  onError(): void {
     this.ngbPaginationPage = this.page ?? 1;
   }
 }

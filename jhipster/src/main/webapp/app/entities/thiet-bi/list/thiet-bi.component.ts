@@ -25,6 +25,7 @@ export class ThietBiComponent implements OnInit {
   @Input() dayChuyen = '';
   @Input() status = '';
   @Input() ngayTao = null;
+  @Input() updateBy = '';
   @Input() timeUpdate = null;
   @Input() thongSo = '';
   @Input() moTa = '';
@@ -40,6 +41,8 @@ export class ThietBiComponent implements OnInit {
   ngbPaginationPage = 1;
 
   searchResults: IThietBi[] = [];
+
+  selectedStatus: string | null = null;
 
   // lưu từ khóa tìm kiếm
   searchKeyword = '';
@@ -84,7 +87,6 @@ export class ThietBiComponent implements OnInit {
         },
       });
     // console.log("page", this.thietBis);
-
   }
 
   ngOnInit(): void {
@@ -115,6 +117,10 @@ export class ThietBiComponent implements OnInit {
     if (this.searchKeyword.trim() === '') {
       this.showSuggestions = false;
     }
+  }
+
+  onChangeSearch(): void {
+    console.log('Selected Status:', this.selectedStatus);
   }
 
   // được gọi khi người dùng enter. đặt showSuggestions thành false và gọi phương thức search() để thực hiện tìm kiếm
@@ -190,7 +196,7 @@ export class ThietBiComponent implements OnInit {
     this.ngbPaginationPage = this.page ?? 1;
   }
 
-   fetchSearchSuggestions(keyword: string): Observable<string[]> {
+  fetchSearchSuggestions(keyword: string): Observable<string[]> {
     const suggestions: string[] = [];
     const fixedSuggestions: string[] = [];
     const filteredSuggestions = fixedSuggestions.filter(suggestion => suggestion.toLowerCase().includes(keyword.toLowerCase()));
@@ -223,18 +229,17 @@ export class ThietBiComponent implements OnInit {
     );
   }
 
-  timKiemThietBi():void {
+  timKiemThietBi(): void {
     //xoa du lieu cu
     this.searchResults = [];
     //request den server
     const timKiem = {
-      
       maThietBi: this.maThietBi,
       loaiThietBi: this.loaiThietBi,
       dayChuyen: this.dayChuyen,
       ngayTao: this.ngayTao,
       timeUpdate: this.timeUpdate,
-      updateBy: '',
+      updateBy: this.updateBy,
       status: this.status,
     };
     if (sessionStorage.getItem('thiet bi' + JSON.stringify(timKiem)) === null) {
@@ -242,9 +247,8 @@ export class ThietBiComponent implements OnInit {
         //luu du lieu tra ve de hien thi len front-end
         this.thietBis = res;
         sessionStorage.setItem('thiet bi' + JSON.stringify(timKiem), res);
-        console.log("res", res)
+        console.log('res', res);
       });
-
     } else {
       const result = sessionStorage.getItem('thiet bi' + JSON.stringify(timKiem));
       if (result) {

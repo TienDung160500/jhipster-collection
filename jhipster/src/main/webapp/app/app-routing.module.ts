@@ -27,6 +27,7 @@ import { UserRouteAccessService } from 'app/core/auth/user-route-access.service'
         {
           path: 'login',
           loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
+
         },
         {
           path: '',

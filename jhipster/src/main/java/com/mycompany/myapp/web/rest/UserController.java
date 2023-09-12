@@ -39,7 +39,7 @@ public class UserController {
     @GetMapping("/quan-ly-thong-so")
     public List<QuanLyThongSoResponse> danhSachThongSo() {
         List<QuanLyThongSoResponse> responseList = this.userServices.danhSachThongSo();
-        logger.info("success");
+
         return responseList;
     }
 // Note test
@@ -111,9 +111,9 @@ public class UserController {
 
     //? thêm mới thông số thiết bị vào DB
     @PostMapping("/thiet-bi/them-moi-thong-so-thiet-bi")
-    public String postThongSoMay(@RequestBody List<ThongSoMayRequest> requestList){
-        String result = this.userServices.postThongSoMay(requestList);
-        return  result;
+    public void postThongSoMay(@RequestBody List<ThongSoMayRequest> requestList){
+        this.userServices.postThongSoMay(requestList);
+
     }
     //? xem danh sách thông số thiết bị
     @GetMapping("/thiet-bi/danh-sach-thong-so-thiet-bi/{maThietBi}")

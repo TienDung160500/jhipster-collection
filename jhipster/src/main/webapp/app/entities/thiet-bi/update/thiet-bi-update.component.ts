@@ -15,9 +15,11 @@ import { ThietBiService } from '../service/thiet-bi.service';
 @Component({
   selector: 'jhi-thiet-bi-update',
   templateUrl: './thiet-bi-update.component.html',
+  styleUrls: ['./thiet-bi-update.component.css'],
 })
 export class ThietBiUpdateComponent implements OnInit {
   resourceUrl = this.applicationConfigService.getEndpointFor('api/thiet-bi/cap-nhat');
+  resourceUrlAdd = this.applicationConfigService.getEndpointFor('api//thiet-bi/them-moi-thong-so-thiet-bi');
   predicate!: string;
   ascending!: boolean;
   isSaving = false;
@@ -25,14 +27,22 @@ export class ThietBiUpdateComponent implements OnInit {
   i = 0;
   editId: number | null = null;
 
+  selectedStatus: string | null = null;
+  selectedStatusAdd: string | null = null;
+
   @Input() id = '';
   @Input() idThongSo = '';
   @Input() status = '';
-  @Input() maThongSo = '';
-  @Input() moTa = '';
-  @Input() tenThongSo = '';
+  @Input() maThongSo = '.';
+  @Input() moTa = '.';
+  @Input() thongSo = '.';
+  @Input() phanLoai = '.';
+  @Input() maThietBi = '';
+  @Input() loaiThietBi = '';
 
   thietBisSharedCollection: IThietBi[] = [];
+
+  searchResults: IThietBi[] = [];
 
   form: FormGroup;
   listOfThietBi = [
@@ -40,9 +50,12 @@ export class ThietBiUpdateComponent implements OnInit {
       id: '',
       idThongSo: '',
       maThongSo: '',
-      tenThongSo: '',
+      thongSo: '.',
       moTa: '',
       status: '',
+      phanLoai: '.',
+      maThietBi: this.maThietBi,
+      loaiThietBi: this.loaiThietBi,
     },
   ];
   editForm = this.fb.group({
@@ -83,6 +96,14 @@ export class ThietBiUpdateComponent implements OnInit {
     });
   }
 
+  onChangeSearch(): void {
+    console.log('Selected Status:', this.selectedStatus);
+  }
+
+  onChangeStatus(): void {
+    console.log('Selected Status:', this.selectedStatus);
+  }
+
   trackId(_index: number, item: IThietBi): number {
     return item.id!;
   }
@@ -109,6 +130,15 @@ export class ThietBiUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.thietBiService.create(thietBi));
     }
+  }
+
+  saveThongSoThietBi(): void {
+    this.searchResults = [];
+    console.log(this.maThietBi);
+    // this.http.post<any>(this.resourceUrlAdd,this.listOfThietBi).subscribe(res => {
+    //   console.log("res", res)
+    //   console.log('save', this.listOfThietBi);
+    // });
   }
 
   subscribeToSaveResponse(result: Observable<HttpResponse<IThietBi>>): void {
@@ -185,7 +215,7 @@ export class ThietBiUpdateComponent implements OnInit {
   //       id: '',
   //       idThongSo: '',
   //       maThongSo: '',
-  //       tenThongSo: '',
+  //       thongSo: '',
   //       moTa: '',
   //       status: '',
   //     },
@@ -198,10 +228,13 @@ export class ThietBiUpdateComponent implements OnInit {
     const newRow = {
       id: '',
       idThongSo: '',
-      maThongSo: 'maThongSo',
-      tenThongSo: 'tenThongSo',
-      moTa: 'moTa',
+      maThongSo: '',
+      thongSo: '.',
+      moTa: '',
+      phanLoai: '.',
       status: 'status',
+      maThietBi: this.maThietBi,
+      loaiThietBi: this.loaiThietBi,
     };
 
     this.listOfThietBi = [...this.listOfThietBi, newRow];

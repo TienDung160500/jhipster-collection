@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <div *ngIf="sanXuatHangNgay">
-      <h2 data-cy="sanXuatHangNgayDetailsHeading"><span>San Xuat Hang Ngay</span></h2>
+      <h2 data-cy="sanXuatHangNgayDetailsHeading"><span>Thông tin sản xuất hàng ngày</span></h2>
 
       <hr />
 
@@ -9,48 +9,63 @@
 
       <jhi-alert></jhi-alert>
 
-      <dl class="row-md jh-entity-details">
-        <dt><span>ID</span></dt>
-        <dd>
-          <span>{{ sanXuatHangNgay.id }}</span>
-        </dd>
-        <dt><span>Ma Kich Ban</span></dt>
-        <dd>
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending">
+            <th scope="col" jhiSortBy="maKichBan"><span>Mã kịch bản</span></th>
+            <th scope="col" jhiSortBy="maMay"><span>Mã máy</span></th>
+            <th scope="col" jhiSortBy="MaSanPham"><span>Mã sản phẩm</span></th>
+            <th scope="col" jhiSortBy="thongSo"><span>Thông số</span></th>
+            <th scope="col" jhiSortBy="minValue"><span>Min</span></th>
+            <th scope="col" jhiSortBy="maxValue"><span>Max</span></th>
+            <th scope="col" jhiSortBy="trungBinh"><span>Trung bình</span></th>
+            <th scope="col" jhiSortBy="donVi"><span>Đơn vị</span></th>
+            <th scope="col" jhiSortBy="trangThai"><span>Lần cập nhật gần nhất</span></th>
+
+          </tr>
+        </thead>
+        <tbody>
+        <td>
           <span>{{ sanXuatHangNgay.maKichBan }}</span>
-        </dd>
-        <dt><span>Ma Thiet Bi</span></dt>
-        <dd>
+        </td>
+
+        <td>
           <span>{{ sanXuatHangNgay.maThietBi }}</span>
-        </dd>
-        <dt><span>Loai Thiet Bi</span></dt>
-        <dd>
-          <span>{{ sanXuatHangNgay.loaiThietBi }}</span>
-        </dd>
-        <dt><span>Day Chuyen</span></dt>
-        <dd>
-          <span>{{ sanXuatHangNgay.dayChuyen }}</span>
-        </dd>
-        <dt><span>Ma San Pham</span></dt>
-        <dd>
+        </td>
+
+        <td>
           <span>{{ sanXuatHangNgay.maSanPham }}</span>
-        </dd>
-        <dt><span>Version San Pham</span></dt>
-        <dd>
-          <span>{{ sanXuatHangNgay.versionSanPham }}</span>
-        </dd>
-        <dt><span>Ngay Tao</span></dt>
-        <dd>
+        </td>
+
+        <td>
+          <!-- <span>{{ sanXuatHangNgay.chiTietSanXuats.thongSo }}</span>
+        </td>
+
+        <td>
+          <span>{{ sanXuatHangNgay.chiTietSanXuats.minValue }}</span>
+        </td>
+
+        <td>
+          <span>{{ sanXuatHangNgay.chiTietSanXuats.maxValue }}</span>
+        </td>
+
+        <td>
+          <span>{{ sanXuatHangNgay.chiTietSanXuats.trungBinh }}</span> -->
+        </td>
+
+        <td>
           <span>{{ sanXuatHangNgay.ngayTao | formatMediumDatetime }}</span>
-        </dd>
-        <dt><span>Time Update</span></dt>
-        <dd>
+        </td>
+
+        <td>
           <span>{{ sanXuatHangNgay.timeUpdate | formatMediumDatetime }}</span>
-        </dd>
-        <dt><span>Trang Thai</span></dt>
-        <dd>
+        </td>
+
+        <td>
           <span>{{ sanXuatHangNgay.trangThai }}</span>
-        </dd>
-      </dl>
+        </td>
+        </tbody>
+      </table>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>

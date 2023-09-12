@@ -74,6 +74,10 @@ export class QuanLyThongSoUpdateComponent implements OnInit {
     });
   }
 
+  // search(keyword: string) {
+
+  // }
+
   onMaKichBanChange(): void { 
     console.log('chon trang thai', this.selectedStatus)
   }

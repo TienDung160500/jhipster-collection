@@ -25,27 +25,14 @@
           <tbody>
             <tr data-cy="entityTable">
               <td>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="maThietBi"
-                  id="maThietBi"
-                  data-cy="maThietBi"
-                  formControlName="maThietBi"
-                />
+                <input #searchInput type="text" class="form-control" [(ngModel)]="maThietBi" />
+              </td>
+              <td>
+                <input #searchInput type="text" class="form-control" [(ngModel)]="loaiThietBi" />
               </td>
               <td>
                 <input
-                  type="text"
-                  class="form-control"
-                  name="loaiThietBi"
-                  id="field_loaiThietBi"
-                  data-cy="loaiThietBi"
-                  formControlName="loaiThietBi"
-                />
-              </td>
-              <td>
-                <input
+                  #searchInput
                   type="text"
                   class="form-control"
                   name="dayChuyen"
@@ -55,14 +42,19 @@
                 />
               </td>
               <td>
-                <input
-                  type="text"
+                <select
                   class="form-control"
-                  name="status"
                   id="status"
                   data-cy="status"
+                  name="status"
                   formControlName="status"
-                />
+                  [(ngModel)]="selectedStatus"
+                  (change)="onChangeSearch()"
+                >
+                  <option [ngValue]="null">-- Chọn trạng thái --</option>
+                  <option value="active">Active</option>
+                  <option value="deactive">Deactive</option>
+                </select>
               </td>
             </tr>
           </tbody>
@@ -74,22 +66,21 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
           (click)="save()"
-          style="margin-bottom: 2em;"
+          style="margin-bottom: 2em"
         >
           <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
         </button>
 
         <h2 id="jhi-thiet-bi-heading" data-cy="ThietBiCreateUpdateHeading">Thêm mới thông số thiết bị</h2>
-          <!-- <button id="jh-create-entity" class="btn btn-primary jh-create-entity create-thong-so-may" (click)="addRow()">
+        <!-- <button id="jh-create-entity" class="btn btn-primary jh-create-entity create-thong-so-may" (click)="addRow()">
             <fa-icon icon="plus"></fa-icon>
           </button> -->
 
-          <button (click)="addRow()">Add</button>
+        <button class="btn-add" (click)="addRow()">Add</button>
 
         <table class="table table-striped" aria-describedby="page-heading">
           <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending">
-              <th scope="col" jhiSortBy="maThietBi"><span>Mã thông số</span></th>
               <th scope="col" jhiSortBy="maThietBi"><span>Thông số</span></th>
               <th scope="col" jhiSortBy="loaiThietBi"><span>Mô tả</span></th>
               <th scope="col" jhiSortBy="updateBy"><span>Phân loại</span></th>
@@ -97,87 +88,76 @@
               <th scope="col"></th>
             </tr>
           </thead>
-           <tbody>
-                <tr *ngFor="let data of listOfThietBi; let i = index" class="editable-row">
-                  <td>
+          <tbody>
+            <tr *ngFor="let data of listOfThietBi; let i = index" class="editable-row">
+              <!-- <td>
                     <div [hidden]="editId === i+1" (click)="startEdit2(i+1)">
                       {{ data.id }}
                     </div>
                     <input class="input-table" [hidden]="editId !== i+1" type="text" [(ngModel)]="data.id"
-                      (keydown.tab)="stopEdit()" [ngModelOptions]="{standalone: true}"/>
+                      (keydown.tab)="stopEdit()" [ngModelOptions]="{standalone: true}"/> -->
 
-                  <td>
-                    <div [hidden]="editId === i+1" (click)="startEdit2(i+1)">
-                      {{ data.maThongSo }}
-                    </div>
-                    <input class="input-table" [hidden]="editId !== i+1" type="text" [(ngModel)]="data.maThongSo"
-                      (keydown.tab)="stopEdit()" [ngModelOptions]="{standalone: true}"/>
-                  </td>
-                
-                  <td>
-                    <div [hidden]="editId === i+1" (click)="startEdit2(i+1)">
-                      {{ data.tenThongSo }}
-                    </div>
-                    <input class="input-table" [hidden]="editId !== i+1" type="text" [(ngModel)]="data.tenThongSo"
-                      (keydown.tab)="stopEdit()" [ngModelOptions]="{standalone: true}"/>
-                  </td>
-                
-                  <td>
-                    <div [hidden]="editId === i+1" (click)="startEdit2(i+1)">
-                      {{ data.moTa }}
-                    </div>
-                    <input class="input-table" [hidden]="editId !== i+1" type="text" [(ngModel)]="data.moTa"
-                      (keydown.tab)="stopEdit()" [ngModelOptions]="{standalone: true}"/>
-                  </td>
-                  <td>
-                    <div [hidden]="editId === i+1" (click)="startEdit2(i+1)">
-                      {{ data.status }}
-                    </div>
-                    <input class="input-table" [hidden]="editId !== i+1" type="text" [(ngModel)]="data.status" (keydown.tab)="stopEdit()" [ngModelOptions]="{standalone: true}"/>
-                  </td>
-                  <td><button (click)="deleteRow(data.id)">Xoá</button></td>
-                  </tr>
-           </tbody>
-          <!-- <tbody>
-            <tr data-cy="entityTable">
               <td>
+                <div [hidden]="editId === i + 1" (click)="startEdit2(i + 1)">
+                  {{ data.thongSo }}
+                </div>
                 <input
+                  class="input-table"
+                  [hidden]="editId !== i + 1"
                   type="text"
-                  class="form-control"
-                  name="thongSo"
-                  id="thongSo"
-                  formControlName="thongSo"
+                  [(ngModel)]="data.thongSo"
+                  (keydown.tab)="stopEdit()"
+                  [ngModelOptions]="{ standalone: true }"
+                  placeholder="{{ data.thongSo }}"
+                />
+              </td>
+
+              <td>
+                <div [hidden]="editId === i + 1" (click)="startEdit2(i + 1)">
+                  {{ data.moTa }}
+                </div>
+                <input
+                  class="input-table"
+                  [hidden]="editId !== i + 1"
+                  type="text"
+                  [(ngModel)]="data.moTa"
+                  (keydown.tab)="stopEdit()"
+                  [ngModelOptions]="{ standalone: true }"
+                  placeholder="{{ data.moTa }}"
+                />
+              </td>
+
+              <td>
+                <div [hidden]="editId === i + 1" (click)="startEdit2(i + 1)">
+                  {{ data.phanLoai }}
+                </div>
+                <input
+                  class="input-table"
+                  [hidden]="editId !== i + 1"
+                  type="text"
+                  [(ngModel)]="data.phanLoai"
+                  (keydown.tab)="stopEdit()"
+                  [ngModelOptions]="{ standalone: true }"
                 />
               </td>
               <td>
-                <input
-                  type="text"
+                <select
                   class="form-control"
-                  name="moTa"
-                  id="moTa"
-                  formControlName="moTa"
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="phanLoai"
-                  id="phanLoai"
-                  formControlName="phanLoai"
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="status"
                   id="status"
+                  data-cy="status"
+                  name="status"
                   formControlName="status"
-                />
+                  [(ngModel)]="selectedStatusAdd"
+                  (change)="onChangeStatus()"
+                >
+                  <option [ngValue]="null">-- Chọn trạng thái --</option>
+                  <option value="active1">Active</option>
+                  <option value="deactive1">Deactive</option>
+                </select>
               </td>
+              <td><button class="btn btn-danger btn-sm" (click)="deleteRow(data.id)">Xoá</button></td>
             </tr>
-          </tbody> -->
+          </tbody>
         </table>
 
         <div>
@@ -191,7 +171,7 @@
             data-cy="entityCreateSaveButton"
             [disabled]="editForm.invalid || isSaving"
             class="btn btn-primary"
-            (click)="save()"
+            (click)="saveThongSoThietBi()"
           >
             <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
           </button>

@@ -233,7 +233,7 @@ public class UserServices {
     }
 
         //? thêm mới thông số thiết b vào DB
-    public String postThongSoMay(List<ThongSoMayRequest> requestList) {
+    public void postThongSoMay(List<ThongSoMayRequest> requestList) {
         Integer row = 0;
         for (ThongSoMayRequest request : requestList) {
             ThongSoMay entity = new ThongSoMay();
@@ -246,7 +246,6 @@ public class UserServices {
             entity.setPhanLoai(request.getPhanLoai());
             thongSoMayRepository.save(entity);
         }
-        return "cai dat thong so thiet bi thanh cong !";
     }
     //----------------------- Chức năng cập nhật thông số thiết bị -----------------------------------------------
     //? xem danh sách thông số thiết bị
