@@ -70,7 +70,7 @@
 
         <h2 id="jhi-thiet-bi-heading" data-cy="ThietBiCreateUpdateHeading">Chỉnh sửa thông số thiết bị</h2>
 
-        <button class="btn-add" style="border-radius: 0.5em;" (click)="addRow()">Add</button>
+        <!-- <button class="btn-add" style="border-radius: 0.5em;" (click)="addRow()">Add</button> -->
 
         <table class="table table-striped" aria-describedby="page-heading">
           <thead>
@@ -83,11 +83,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let data of listOfThietBi; let i = index" class="editable-row">
 
               <td>
                 <div [hidden]="editId === i + 1" (click)="startEdit2(i + 1)">
-                  {{ data.thongSo }}
+                  {{ thietBi.maThietBi }}
                 </div>
                 <input
                   class="input-table"
@@ -144,7 +143,6 @@
                 </select>
               </td>
               <td><button class="btn btn-danger btn-sm" (click)="deleteRow(data.id)">Xoá</button></td>
-            </tr>
           </tbody>
         </table>
 

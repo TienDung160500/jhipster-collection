@@ -83,7 +83,7 @@ export class QuanLyThongSoUpdateComponent implements OnInit {
   }
 
   previousState(): void {
-    window.history.back();
+    window.history.pushState({},"",window.location.href);
   }
 
   save(): void {

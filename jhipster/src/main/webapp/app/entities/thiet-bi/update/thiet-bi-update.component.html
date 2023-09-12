@@ -21,10 +21,26 @@
             <tbody>
               <tr data-cy="entityTable">
                 <td>
-                  <input #searchInput type="text" class="form-control" [(ngModel)]="maThietBi" />
+                  <input
+                    #searchInput
+                    type="text"
+                    class="form-control"
+                    name="maThietBi"
+                    id="maThietBi"
+                    data-cy="maThietBi"
+                    formControlName="maThietBi"
+                  />
                 </td>
                 <td>
-                  <input #searchInput type="text" class="form-control" [(ngModel)]="loaiThietBi" />
+                  <input
+                    #searchInput
+                    type="text"
+                    class="form-control"
+                    name="loaiThietBi"
+                    id="loaiThietBi"
+                    data-cy="loaiThietBi"
+                    formControlName="loaiThietBi"
+                  />
                 </td>
                 <td>
                   <input
