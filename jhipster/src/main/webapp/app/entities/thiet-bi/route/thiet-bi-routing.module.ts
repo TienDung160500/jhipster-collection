@@ -1,3 +1,4 @@
+import { EditComponent } from './../edit/edit.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -34,7 +35,7 @@ const thietBiRoute: Routes = [
   },
   {
     path: ':id/edit',
-    component: ThietBiUpdateComponent,
+    component: EditComponent,
     resolve: {
       thietBi: ThietBiRoutingResolveService,
     },

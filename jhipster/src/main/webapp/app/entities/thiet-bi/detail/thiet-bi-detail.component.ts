@@ -1,3 +1,4 @@
+import { IThongSoMay } from 'app/entities/thong-so-may/thong-so-may.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -11,6 +12,8 @@ export class ThietBiDetailComponent implements OnInit {
   predicate!: string;
   ascending!: boolean;
   thietBi: IThietBi | null = null;
+
+  dataThongSoMay?: IThongSoMay | null | undefined = null;
 
   constructor(protected activatedRoute: ActivatedRoute) {}
 

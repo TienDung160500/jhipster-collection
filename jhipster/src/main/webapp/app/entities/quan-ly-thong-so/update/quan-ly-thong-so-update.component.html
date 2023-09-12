@@ -18,21 +18,17 @@
 
           <tbody>
             <tr data-cy="entityTable">
-              
-              <!-- <td>
-                <input type="text" class="form-control" placeholder=""/>
-              </td> -->
               <td>
-                <input type="text" class="form-control" name="maThongSo" id="field_loaiThietBi" 
-                  formControlName="loaiThietBi" />
+                <input type="text" class="form-control" name="maThongSo" id="maThongSo" 
+                  formControlName="maThongSo" />
               </td>
               <td>
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" 
-                  formControlName="loaiThietBi" />
+                <input type="text" class="form-control" name="tenThongSo" id="tenThongSo" 
+                  formControlName="tenThongSo" />
               </td>
               <td>
-                <input type="text" class="form-control" name="loaiThietBi" id="field_loaiThietBi" 
-                  formControlName="loaiThietBi" />
+                <input type="text" class="form-control" name="moTa" id="moTa" 
+                  formControlName="moTa" />
               </td>
               <td>
                 <select class="form-control" id="maKichBan" data-cy="maKichBan" name="maKichBan" formControlName="maKichBan" [(ngModel)]="selectedStatus" (change)="onMaKichBanChange()">
@@ -42,100 +38,9 @@
                 </select>
                 
               </td>
-              <td class="text-end">
-                <div class="btn-group">
-                  <!-- <button type="submit" [routerLink]="['/thong-so-may', thongSoMay.id, 'view']" class="btn btn-info btn-sm"
-                              data-cy="entityDetailsButton">
-                              <fa-icon icon="eye"></fa-icon>
-                              <span class="d-none d-md-inline">View</span>
-                            </button>
-                    
-                            <button type="submit" [routerLink]="['/thong-so-may', thongSoMay.id, 'edit']" class="btn btn-primary btn-sm"
-                              data-cy="entityEditButton">
-                              <fa-icon icon="pencil-alt"></fa-icon>
-                              <span class="d-none d-md-inline">Edit</span>
-                            </button> -->
-          
-                  <!-- <button type="submit" (click)="delete(thongSoMay)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                    <fa-icon icon="times"></fa-icon>
-                    <span class="d-none d-md-inline">Delete</span>
-                  </button> -->
-                </div>
-              </td>
             </tr>
           </tbody>
-
-
         </table>
-
-        <!-- <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-label" for="field_id">STT</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_maThongSo">Mã thông số</label>
-          <input type="text" class="form-control" name="maThongSo" id="field_maThongSo" data-cy="maThongSo" formControlName="maThongSo" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_tenThongSo">Tên thông số</label>
-          <input
-            type="text"
-            class="form-control"
-            name="tenThongSo"
-            id="field_tenThongSo"
-            data-cy="tenThongSo"
-            formControlName="tenThongSo"
-          />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_moTa">Mô tả</label>
-          <input type="text" class="form-control" name="moTa" id="field_moTa" data-cy="moTa" formControlName="moTa" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_ngayTao">Ngày tạo</label>
-          <div class="d-flex">
-            <input
-              id="field_ngayTao"
-              data-cy="ngayTao"
-              type="datetime-local"
-              class="form-control"
-              name="ngayTao"
-              formControlName="ngayTao"
-              placeholder="YYYY-MM-DD HH:mm"
-            />
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_ngayUpdate">Ngày cập nhật</label>
-          <div class="d-flex">
-            <input
-              id="field_ngayUpdate"
-              data-cy="ngayUpdate"
-              type="datetime-local"
-              class="form-control"
-              name="ngayUpdate"
-              formControlName="ngayUpdate"
-              placeholder="YYYY-MM-DD HH:mm"
-            />
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_updateBy">Cập nhật bởi</label>
-          <input type="text" class="form-control" name="updateBy" id="field_updateBy" data-cy="updateBy" formControlName="updateBy" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" for="field_status">Trạng thái</label>
-          <input type="text" class="form-control" name="status" id="field_status" data-cy="status" formControlName="status" />
-        </div>
-      </div>-->
-
     </div>
   </form>
   <div>
@@ -149,6 +54,7 @@
       data-cy="entityCreateSaveButton"
       [disabled]="editForm.invalid || isSaving"
       class="btn btn-primary"
+      (click)="save()"
     >
       <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
     </button> 

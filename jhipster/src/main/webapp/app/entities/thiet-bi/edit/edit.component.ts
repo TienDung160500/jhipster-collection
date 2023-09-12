@@ -1,24 +1,22 @@
-import { IThongSoMay } from 'app/entities/thong-so-may/thong-so-may.model';
-import { ApplicationConfigService } from 'app/core/config/application-config.service';
-import { Component, Input, OnInit } from '@angular/core';
-import { HttpResponse, HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
-
-import dayjs from 'dayjs/esm';
+import { ThietBi } from './../thiet-bi.model';
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';
-
-import { IThietBi, ThietBi } from '../thiet-bi.model';
-import { ThietBiService } from '../service/thiet-bi.service';
+import { finalize } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import  dayjs  from 'dayjs/esm';
+import { ApplicationConfigService } from 'app/core/config/application-config.service';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { ThietBiService } from 'app/entities/thiet-bi/service/thiet-bi.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { IThietBi } from 'app/entities/thiet-bi/thiet-bi.model';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'jhi-thiet-bi-update',
-  templateUrl: './thiet-bi-update.component.html',
-  styleUrls: ['./thiet-bi-update.component.css'],
+  selector: 'jhi-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss'],
 })
-export class ThietBiUpdateComponent implements OnInit {
+export class EditComponent implements OnInit {
   resourceUrl = this.applicationConfigService.getEndpointFor('api/thiet-bi/cap-nhat');
   resourceUrlAdd = this.applicationConfigService.getEndpointFor('api//thiet-bi/them-moi-thong-so-thiet-bi');
   predicate!: string;
@@ -41,7 +39,6 @@ export class ThietBiUpdateComponent implements OnInit {
   @Input() maThietBi = '';
   @Input() loaiThietBi = '';
 
-
   thietBisSharedCollection: IThietBi[] = [];
 
   searchResults: IThietBi[] = [];
@@ -60,7 +57,7 @@ export class ThietBiUpdateComponent implements OnInit {
       loaiThietBi: this.loaiThietBi,
     },
   ];
-  
+
   editForm = this.fb.group({
     id: [],
     maThietBi: [],

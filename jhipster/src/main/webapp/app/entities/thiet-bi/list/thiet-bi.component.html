@@ -146,11 +146,8 @@
   </div>
 
   <div *ngIf="thietBis && thietBis.length > 0">
-    <div class="d-flex justify-content-center">
-      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
-    </div>
 
-    <div class="d-flex justify-content-center">
+    <div>
       <ngb-pagination
         [collectionSize]="totalItems"
         [(page)]="ngbPaginationPage"
@@ -159,6 +156,7 @@
         [rotate]="true"
         [boundaryLinks]="true"
         (pageChange)="loadPage($event)"
+        style="float: right;"
       ></ngb-pagination>
     </div>
   </div>

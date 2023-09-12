@@ -1,9 +1,6 @@
 <div>
   <h2 id="page-heading" data-cy="QuanLyThongSoHeading">
     <span>Quản lý thông số</span>
-
-
-
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
@@ -108,7 +105,7 @@
 
           <th scope="col" jhiSortBy="status">
             <span>Trạng thái</span>
-            <select class="form-control" id="maKichBan" data-cy="maKichBan" name="maKichBan" formControlName="maKichBan" [(ngModel)]="selectedStatus" (change)="onChangeSearch()">
+            <select class="form-control dropdown-toggle" id="maKichBan" data-cy="maKichBan" name="maKichBan" formControlName="maKichBan" [(ngModel)]="selectedStatus" (change)="onChangeSearch()">
               <option [ngValue]="null">-- Chọn trạng thái --</option>
               <option value="active">Active</option>
               <option value="deactive">Deactive</option>

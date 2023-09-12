@@ -5,10 +5,11 @@ import { ThietBiDetailComponent } from './detail/thiet-bi-detail.component';
 import { ThietBiUpdateComponent } from './update/thiet-bi-update.component';
 import { ThietBiDeleteDialogComponent } from './delete/thiet-bi-delete-dialog.component';
 import { ThietBiRoutingModule } from './route/thiet-bi-routing.module';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   imports: [SharedModule, ThietBiRoutingModule],
-  declarations: [ThietBiComponent, ThietBiDetailComponent, ThietBiUpdateComponent, ThietBiDeleteDialogComponent],
+  declarations: [ThietBiComponent, ThietBiDetailComponent, ThietBiUpdateComponent, ThietBiDeleteDialogComponent, EditComponent],
   entryComponents: [ThietBiDeleteDialogComponent],
 })
 export class ThietBiModule {}
