@@ -84,7 +84,7 @@
           </thead>
           <tbody>
 
-              <td>
+              <!-- <td>
                 <div [hidden]="editId === i + 1" (click)="startEdit2(i + 1)">
                   {{ thietBi.maThietBi }}
                 </div>
@@ -126,7 +126,7 @@
                   (keydown.tab)="stopEdit()"
                   [ngModelOptions]="{ standalone: true }"
                 />
-              </td>
+              </td> -->
               <td>
                 <select
                   class="form-control"
@@ -142,7 +142,7 @@
                   <option value="deactive1">Deactive</option>
                 </select>
               </td>
-              <td><button class="btn btn-danger btn-sm" (click)="deleteRow(data.id)">Xoá</button></td>
+              <!-- <td><button class="btn btn-danger btn-sm" (click)="deleteRow(data.id)">Xoá</button></td> -->
           </tbody>
         </table>
 

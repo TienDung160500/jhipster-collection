@@ -42,6 +42,19 @@
             <ul *ngIf="searchResults.length > 0">
               <li *ngFor="let result of searchResults">{{ result.maThongSo }}</li>
             </ul>
+
+            <angucomplete-alt id="ex2"
+              placeholder="Search"
+              pause="300"
+              selected-object="selectedThongSo"
+              local-data="people"
+              local-search="localSearch"
+              title-field="maThongSo"
+              description-field="twitter"
+              minlength="1"
+              input-class="form-control form-control-small"
+              match-class="highlight" />
+
           </th>
           <th scope="col" jhiSortBy="tenThongSo">
             <span>Tên thông số</span>

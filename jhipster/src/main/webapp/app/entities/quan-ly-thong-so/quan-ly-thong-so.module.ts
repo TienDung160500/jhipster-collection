@@ -5,10 +5,11 @@ import { QuanLyThongSoDetailComponent } from './detail/quan-ly-thong-so-detail.c
 import { QuanLyThongSoUpdateComponent } from './update/quan-ly-thong-so-update.component';
 import { QuanLyThongSoDeleteDialogComponent } from './delete/quan-ly-thong-so-delete-dialog.component';
 import { QuanLyThongSoRoutingModule } from './route/quan-ly-thong-so-routing.module';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   imports: [SharedModule, QuanLyThongSoRoutingModule],
-  declarations: [QuanLyThongSoComponent, QuanLyThongSoDetailComponent, QuanLyThongSoUpdateComponent, QuanLyThongSoDeleteDialogComponent],
+  declarations: [QuanLyThongSoComponent, QuanLyThongSoDetailComponent, QuanLyThongSoUpdateComponent, QuanLyThongSoDeleteDialogComponent, EditComponent],
   entryComponents: [QuanLyThongSoDeleteDialogComponent],
 })
 export class QuanLyThongSoModule {}

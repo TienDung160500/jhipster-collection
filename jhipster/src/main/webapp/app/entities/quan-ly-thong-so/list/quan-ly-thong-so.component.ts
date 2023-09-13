@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { switchMap } from 'rxjs/operators';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
@@ -93,6 +94,44 @@ export class QuanLyThongSoComponent implements OnInit {
   onSearch(): void {
     this.searchResults = this.quanLyThongSo.filter((obj: any) => obj.name.toLowerCase().includes(this.searchTerm.toLowerCase));
   }
+
+
+  // auto complete
+  // Here is a naive implementation for matching first name, last name, or full name
+  // scope.localSearch = function(str) {
+  //   var matches = [];
+  //   $scope.people.forEach(function(person) {
+  //     var fullName = person.firstName + ' ' + person.surname;
+  //     if ((person.firstName.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0) ||
+  //         (person.surname.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0) ||
+  //         (fullName.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0)) {
+  //       matches.push(person);
+  //     }
+  //   });
+  //   return matches;
+  // };
+
+ localSearch = (str: string, quanLyThongSo: IQuanLyThongSo[]): IQuanLyThongSo[] => {
+  const matches: IQuanLyThongSo[] = [];
+  quanLyThongSo.forEach(thongSo => {
+    const maThongSo = `${this.maThongSo}`;
+    const tenThongSo = `${this.tenThongSo}`;
+    const moTa = `${this.moTa}`;
+    const updateBy = `${this.updateBy}`;
+
+    if (
+     maThongSo.toLowerCase().includes(str.toLowerCase()) ||
+     tenThongSo.toLowerCase().includes(str.toLowerCase()) ||
+     moTa.toLowerCase().includes(str.toLowerCase()) ||
+     updateBy.toLowerCase().includes(str.toLowerCase())
+    ) {
+      matches.push(thongSo);
+    }
+  });
+  return matches;
+};
+
+
 
   timKiemThietBi(): void {
     //xoa du lieu cu

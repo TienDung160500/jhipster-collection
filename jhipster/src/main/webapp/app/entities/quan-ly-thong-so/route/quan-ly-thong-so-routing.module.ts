@@ -1,3 +1,4 @@
+import { EditComponent } from './../../thiet-bi/edit/edit.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -18,7 +19,7 @@ const quanLyThongSoRoute: Routes = [
   },
   {
     path: ':id/view',
-    component: QuanLyThongSoDetailComponent,
+    component: EditComponent,
     resolve: {
       quanLyThongSo: QuanLyThongSoRoutingResolveService,
     },

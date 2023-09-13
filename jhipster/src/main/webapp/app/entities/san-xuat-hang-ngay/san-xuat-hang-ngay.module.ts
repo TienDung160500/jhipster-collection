@@ -5,6 +5,7 @@ import { SanXuatHangNgayDetailComponent } from './detail/san-xuat-hang-ngay-deta
 import { SanXuatHangNgayUpdateComponent } from './update/san-xuat-hang-ngay-update.component';
 import { SanXuatHangNgayDeleteDialogComponent } from './delete/san-xuat-hang-ngay-delete-dialog.component';
 import { SanXuatHangNgayRoutingModule } from './route/san-xuat-hang-ngay-routing.module';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   imports: [SharedModule, SanXuatHangNgayRoutingModule],
@@ -13,6 +14,7 @@ import { SanXuatHangNgayRoutingModule } from './route/san-xuat-hang-ngay-routing
     SanXuatHangNgayDetailComponent,
     SanXuatHangNgayUpdateComponent,
     SanXuatHangNgayDeleteDialogComponent,
+    EditComponent,
   ],
   entryComponents: [SanXuatHangNgayDeleteDialogComponent],
 })

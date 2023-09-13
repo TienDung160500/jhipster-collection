@@ -1,3 +1,4 @@
+import { IThongSoMay } from './../../thong-so-may/thong-so-may.model';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { switchMap } from 'rxjs/operators';
 import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
@@ -41,6 +42,8 @@ export class ThietBiComponent implements OnInit {
   ngbPaginationPage = 1;
 
   searchResults: IThietBi[] = [];
+
+  thongSoMay?: IThongSoMay[];
 
   selectedStatus: string | null = null;
 
